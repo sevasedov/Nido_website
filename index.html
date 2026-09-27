@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Nido · Casa de huéspedes y coliving en Tepoztlán, Morelos</title>
+<meta name="description" content="Estancias largas y fines de semana en Tepoztlán. Habitaciones privadas en una casa con jardín, cocina y dos salas en Ixcatepec, a 10 min del centro en transporte público. Desde $600 MXN por noche."></meta>
+<link rel="alternate" hreflang="es" href="?lang=es"></link>
+<link rel="alternate" hreflang="en" href="?lang=en"></link>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=Figtree:wght@400;500&amp;display=swap" rel="stylesheet"></link>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"></link>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"></link>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"></link>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Nido Tepoztlán","address":{"@type":"PostalAddress","addressLocality":"Tepoztlán","addressRegion":"Morelos","postalCode":"62525","addressCountry":"MX","streetAddress":"Calle Progreso 1B, Ixcatepec"},"geo":{"@type":"GeoCoordinates","latitude":18.9758,"longitude":-99.0791},"telephone":"+529983196367","email":"nidotepoztlan@gmail.com","hasMap":"https://maps.google.com/?cid=12397869118622683444","priceRange":"$600 MXN","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"66"}}</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></link>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="nido-data.js"></script>
+<script src="nido-reviews.js"></script>
+<link rel="icon" type="image/png" href="assets/favicon.png"></link>
+<link rel="apple-touch-icon" href="assets/logo.jpg"></link>
+<script src="image-slot.js"></script>
+<style>body{margin:0;background:var(--bg,#EEE6DA);color:var(--ink,#2E2520)}a{color:var(--ink,#2E2520);text-decoration:none}a:hover{color:var(--acc,#9A5236)}input,select,button{font:inherit}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14)}}
+@keyframes fin{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="var(--ink,#2E2520)"></rect><text x="50" y="64" font-family="Georgia,serif" font-size="44" fill="#F3EDE3" text-anchor="middle">N</text></svg></template>
+<div style="--bg:{{ v.bg }};--ink:{{ v.ink }};--acc:{{ v.acc }};--acc2:color-mix(in oklab,var(--acc) 55%,#fff);--acc3:color-mix(in oklab,var(--acc) 25%,#fff);--acc4:color-mix(in oklab,var(--acc) 80%,#fff);--card:color-mix(in oklab,var(--bg) 55%,#fff);--line:color-mix(in oklab,var(--bg) 78%,var(--ink));--ph:color-mix(in oklab,var(--bg) 88%,var(--ink));--mute:color-mix(in oklab,var(--ink) 62%,var(--bg));--mute2:color-mix(in oklab,var(--ink) 78%,var(--bg));--ink2:color-mix(in oklab,var(--ink) 90%,var(--bg));--dark:var(--ink);--amen:{{ v.amen }};--amenFg:{{ v.amenFg }};--amenAcc:{{ v.amenAcc }};background:var(--bg,#EEE6DA);color:var(--ink,#2E2520);font-family:'Figtree',sans-serif;font-size:17px;line-height:1.6;overflow-x:clip;position:relative;transition:background .4s">
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.08;background-image:url(&quot;data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'&gt;&lt;filter id='n'&gt;&lt;feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/&gt;&lt;/filter&gt;&lt;rect width='100%' height='100%' filter='url(%23n)'/&gt;&lt;/svg&gt;&quot;)"></div>
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;padding:18px clamp(20px,4vw,48px);display:grid;grid-template-columns:{{ hdrCols }};align-items:center;gap:16px;background:{{ hdrBg }};color:{{ hdrFg }};transition:background .5s,color .5s">
+    <nav style="display:{{ navDisp }};gap:22px;flex-wrap:wrap;font-size:12px;letter-spacing:.16em;text-transform:uppercase"><sc-for list="{{ navL }}" as="n" hint-placeholder-count="3"><a onClick="{{ n.go }}" style="cursor:pointer;color:inherit;padding-bottom:3px;background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .5s cubic-bezier(.6,0,.2,1)" style-hover="background-size:100% 1px">{{ n.label }}</a></sc-for></nav>
+    <a onClick="{{ goTop }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;color:inherit"><img src="{{ logo }}" alt="Nido" style="width:44px;height:44px;border-radius:50%;object-fit:cover"></img></a>
+    <div style="display:flex;gap:22px;justify-content:flex-end;align-items:center;flex-wrap:wrap;font-size:12px;letter-spacing:.16em;text-transform:uppercase">
+      <sc-for list="{{ navR }}" as="n" hint-placeholder-count="2"><a onClick="{{ n.go }}" style="cursor:pointer;color:inherit;padding-bottom:3px;background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .5s cubic-bezier(.6,0,.2,1)" style-hover="background-size:100% 1px">{{ n.label }}</a></sc-for>
+      <span style="display:flex;gap:6px"><a onClick="{{ setEs }}" style="cursor:pointer;color:inherit;opacity:{{ esOp }}">ES</a>·<a onClick="{{ setEn }}" style="cursor:pointer;color:inherit;opacity:{{ enOp }}">EN</a></span>
+    <button onClick="{{ toggleMenu }}" aria-label="Menú" style="display:{{ burgerDisp }};background:none;border:none;color:inherit;cursor:pointer;padding:6px;align-items:center"><i class="ph-light ph-list" style="font-size:28px"></i></button></div>
+  </header>
+  <sc-if value="{{ menuOpen }}"><div style="position:fixed;inset:0;z-index:400;background:var(--bg,#EEE6DA);color:var(--ink,#2E2520);display:flex;flex-direction:column;padding:20px 24px 32px;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px"><img src="{{ logo }}" alt="Nido" style="width:40px;height:40px;border-radius:50%;object-fit:cover"></img><button onClick="{{ toggleMenu }}" aria-label="Cerrar" style="background:none;border:none;color:var(--ink,#2E2520);cursor:pointer;padding:8px;display:flex"><i class="ph-light ph-x" style="font-size:30px"></i></button></div>
+    <sc-for list="{{ navM }}" as="n" hint-placeholder-count="6"><a onClick="{{ n.go }}" style="font-family:'Newsreader',serif;font-weight:300;font-size:34px;line-height:1.1;padding:14px 0;border-bottom:1px solid var(--line,#C9B9A5);cursor:pointer;color:var(--ink,#2E2520)">{{ n.label }}</a></sc-for>
+    <div style="display:flex;gap:18px;align-items:center;margin-top:32px;font-size:14px;letter-spacing:.14em"><a onClick="{{ setEs }}" style="cursor:pointer;color:var(--ink,#2E2520);opacity:{{ esOp }}">ES</a><a onClick="{{ setEn }}" style="cursor:pointer;color:var(--ink,#2E2520);opacity:{{ enOp }}">EN</a></div>
+    <a href="{{ waPlain }}" target="_blank" style="margin-top:20px;display:flex;justify-content:center;align-items:center;gap:10px;background:var(--ink,#2E2520);color:var(--bg,#EEE6DA);padding:16px;border-radius:999px;font-size:15px"><i class="ph-light ph-whatsapp-logo" style="font-size:20px"></i>{{ ui.askWa }}</a>
+    <a href="{{ mailPlain }}" target="_blank" rel="noopener" style="margin-top:10px;display:flex;justify-content:center;align-items:center;gap:10px;border:1px solid var(--ink,#2E2520);color:var(--ink,#2E2520);padding:15px;border-radius:999px;font-size:15px"><i class="ph-light ph-envelope-simple" style="font-size:20px"></i>{{ email }}</a>
+  </div></sc-if>
+  <a onClick="{{ goBook }}" style="position:fixed;right:24px;bottom:24px;z-index:60;cursor:pointer;background:var(--acc,#9A5236);color:var(--card,#F6F0E6);padding:14px 24px;border-radius:999px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 10px 30px rgba(46,37,32,.25);display:inline-flex;gap:10px;align-items:center;transition:gap .3s,background .3s" style-hover="background:var(--ink,#2E2520);color:var(--card,#F6F0E6);gap:16px"><i class="ph-light ph-calendar-heart" style="font-size:18px"></i>{{ ui.nav.book }}</a>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--dark,#3A2E27)">
+      <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1"><div style="position:absolute;inset:0;opacity:{{ s.op }};transition:opacity 2s ease"><img src="{{ s.src }}" alt="{{ s.alt }}" style="width:100%;height:100%;object-fit:cover;animation:kb 20s ease-out both alternate infinite"></img></div></sc-for>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,22,18,.5),rgba(30,22,18,.05) 35%,rgba(30,22,18,.65))"></div>
+      <div style="position:absolute;left:0;right:0;bottom:max(14svh,120px);text-align:center;color:var(--card,#F6F0E6);padding:0 24px">
+        <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;animation:fin 1.4s .2s both">Ixcatepec · Tepoztlán · Morelos</div>
+        <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,7vw,108px);line-height:1.02;margin:20px auto 0;max-width:14ch;animation:fin 1.6s .5s both">{{ t.h1a }} <em>{{ t.h1b }}</em></h1>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:28px;display:flex;justify-content:center;gap:10px"><sc-for list="{{ slides }}" as="s" hint-placeholder-count="4"><button onClick="{{ s.go }}" aria-label="{{ s.alt }}" style="width:{{ s.w }};height:2px;border:none;background:var(--card,#F6F0E6);opacity:{{ s.dot }};cursor:pointer;padding:0;transition:width .5s,opacity .5s"></button></sc-for></div>
+    </section>
+
+    <section id="intro" style="max-width:1200px;margin:0 auto;padding:clamp(88px,12vw,160px) clamp(20px,4vw,48px) 0">
+      <div data-reveal="fade" style="display:flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:28px"><i class="ph-light ph-map-pin" style="font-size:18px"></i><span>{{ t.introEyebrow }}</span></div>
+      <h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(48px,7.5vw,112px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:13ch;text-wrap:balance">{{ t.introA }} <em style="color:var(--acc,#9A5236)">{{ t.introB }}</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px;margin-top:44px;align-items:end">
+        <p data-reveal="up" style="margin:0;font-size:20px;line-height:1.55;max-width:44ch;color:var(--ink2,#4A3D35);text-wrap:pretty">{{ t.introSub }}</p>
+        <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px;color:var(--ink2,#4A3D35);justify-self:start">
+          <span style="display:flex;gap:10px;align-items:center"><i class="ph-light ph-bus" style="font-size:24px;color:var(--acc,#9A5236)"></i>{{ t.pill1 }}</span>
+          <span style="display:flex;gap:10px;align-items:center"><i class="ph-light ph-coffee" style="font-size:24px;color:var(--acc,#9A5236)"></i>{{ t.pill2 }}</span>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="rooms" style="max-width:1400px;margin:0 auto;padding:clamp(120px,14vw,200px) clamp(20px,4vw,48px) 0">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+        <div><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ ui.nav.rooms }}</div><h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,72px);line-height:1.02;margin:14px 0 0">{{ t.roomsTitle }}</h2></div>
+        <div style="font-size:15px;color:var(--mute,#7A6A5E)">{{ ui.doubleBed }} · {{ t.fromLabel }} {{ price.night }} MXN {{ ui.perNight }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+          <article style="display:grid;grid-template-columns:{{ roomRow }};gap:clamp(28px,4vw,56px);align-items:start;border-top:1px solid var(--line,#C9B9A5);padding:clamp(32px,4vw,48px) 0">
+            <div onClick="{{ r.open }}" style="overflow:hidden;cursor:pointer;background:var(--ph,#DCCFBF)"><img src="{{ r.photo }}" alt="Habitación {{ r.name }} en Nido Tepoztlán" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></img></div>
+            <div style="display:flex;flex-direction:column;padding-top:4px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px"><h3 style="font-family:'Amatic SC',cursive;font-weight:400;font-size:clamp(52px,5.6vw,84px);line-height:.95;letter-spacing:.02em;text-transform:uppercase;margin:0;color:#3D3530">{{ r.name }}</h3><span style="font-family:'Newsreader',serif;font-style:italic;font-size:20px;color:var(--acc,#9A5236)">{{ r.num }}</span></div>
+              <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--mute,#7A6A5E);margin:18px 0 18px"><span style="display:flex;gap:6px;align-items:center"><i class="ph-light ph-bed" style="font-size:19px"></i>{{ ui.doubleBed }}</span><span style="display:flex;gap:6px;align-items:center"><i class="ph-light {{ r.bathIcon }}" style="font-size:19px"></i>{{ r.bath }}</span><span style="display:flex;gap:6px;align-items:center"><i class="ph-light ph-star" style="font-size:17px"></i>{{ r.rating }} ({{ r.reviews }})</span></div>
+              <p style="margin:0 0 32px;color:var(--mute2,#5E5048);font-size:19px;line-height:1.55;text-wrap:pretty;max-width:52ch">{{ r.desc }}</p>
+              <a onClick="{{ r.open }}" style="cursor:pointer;display:inline-flex;gap:12px;align-items:center;align-self:flex-start;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2,#4A3D35);transition:gap .35s" style-hover="gap:20px;color:var(--acc,#9A5236)">{{ ui.viewRoom }} <svg width="34" height="14" viewBox="0 0 34 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .35s"><path d="M1 7h31M26 1.5l6 5.5-6 5.5M21 1.5l6 5.5-6 5.5"></path></svg></a>
+              <a href="{{ r.wa }}" target="_blank" style="margin-top:28px;align-self:flex-start;border:1px solid var(--acc,#9A5236);color:var(--acc,#9A5236);padding:16px 28px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:background .3s,color .3s" style-hover="background:var(--acc,#9A5236);color:var(--card,#F6F0E6)">{{ t.bookThis }}</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <div style="margin-top:64px;text-align:center;padding:32px 24px;border-top:1px solid var(--line,#C9B9A5);border-bottom:1px solid var(--line,#C9B9A5);display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap"><i class="ph-light ph-egg" style="font-size:26px;color:var(--acc,#9A5236)"></i><span style="font-family:'Newsreader',serif;font-style:italic;font-size:28px">{{ ui.room5 }}</span><span style="color:var(--mute,#7A6A5E);font-size:12px;letter-spacing:.2em;text-transform:uppercase">{{ ui.soon }}</span></div>
+    </section>
+
+    <section id="house" style="padding:clamp(120px,14vw,200px) 0 0">
+      <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,48px) 36px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+        <div><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ t.commonsLabel }}</div><h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,72px);line-height:1.02;margin:14px 0 0;max-width:16ch">{{ t.commonsTitle }}</h2></div>
+        <div style="display:flex;gap:10px"><button onClick="{{ galPrev }}" aria-label="Anterior" style="width:56px;height:56px;border-radius:50%;border:1px solid var(--ink,#2E2520);background:none;color:var(--ink,#2E2520);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s" style-hover="background:var(--ink,#2E2520);color:var(--bg,#EEE6DA)"><i class="ph-light ph-arrow-left" style="font-size:22px"></i></button><button onClick="{{ galNext }}" aria-label="Siguiente" style="width:56px;height:56px;border-radius:50%;border:1px solid var(--ink,#2E2520);background:none;color:var(--ink,#2E2520);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s" style-hover="background:var(--ink,#2E2520);color:var(--bg,#EEE6DA)"><i class="ph-light ph-arrow-right" style="font-size:22px"></i></button></div>
+      </div>
+      <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,48px) 20px;display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ galTabs }}" as="gt" hint-placeholder-count="5"><button onClick="{{ gt.go }}" style="border:1px solid {{ gt.bd }};background:{{ gt.bg }};color:{{ gt.fg }};border-radius:999px;padding:9px 18px;font-size:13px;letter-spacing:.08em;cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:background .3s,color .3s"><i class="ph-light {{ gt.icon }}" style="font-size:17px"></i>{{ gt.k }}</button></sc-for>
+      </div>
+      <div id="galTrack" onScroll="{{ galScroll }}" style="display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 clamp(20px,4vw,48px);padding:0 clamp(20px,4vw,48px) 8px;scrollbar-width:none">
+        <sc-for list="{{ galSlides }}" as="gs" hint-placeholder-count="3">
+          <figure data-gal="1" style="flex:0 0 {{ galW }};margin:0;scroll-snap-align:start">
+            <div style="height:{{ galH }};overflow:hidden;background:var(--ph,#DCCFBF)"><img src="{{ gs.src }}" alt="{{ gs.k }} · Nido Tepoztlán" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></div>
+            <figcaption style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 2px 0"><span style="display:flex;gap:12px;align-items:baseline"><span style="font-family:'Newsreader',serif;font-size:clamp(24px,2.4vw,34px)">{{ gs.k }}</span><span style="font-size:15px;color:var(--mute,#7A6A5E);max-width:48ch">{{ gs.d }}</span></span><span style="font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:var(--acc,#9A5236);white-space:nowrap">{{ gs.n }}</span></figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:var(--amen);color:var(--amenFg);transition:background .4s,color .4s;margin-top:clamp(120px,14vw,200px);padding:clamp(100px,12vw,160px) clamp(20px,4vw,48px)">
+      <div style="max-width:1200px;margin:0 auto">
+        <div style="text-align:center;margin-bottom:64px"><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--amenAcc)">{{ ui.amenities }}</div><h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(38px,4.6vw,64px);line-height:1.05;margin:16px auto 0;max-width:18ch">{{ t.amenTitle }}</h2></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));border-top:1px solid color-mix(in oklab,var(--amen) 82%,var(--amenFg));border-left:1px solid color-mix(in oklab,var(--amen) 82%,var(--amenFg))">
+          <sc-for list="{{ c.amenIcons }}" as="a" hint-placeholder-count="12"><div style="background:var(--amen);border-right:1px solid color-mix(in oklab,var(--amen) 82%,var(--amenFg));border-bottom:1px solid color-mix(in oklab,var(--amen) 82%,var(--amenFg));padding:32px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;transition:background .5s" style-hover="background:color-mix(in oklab,var(--amen) 90%,var(--amenFg))"><i class="ph-light {{ a.i }}" style="font-size:40px;color:var(--amenAcc)"></i><span style="font-size:14px;color:color-mix(in oklab,var(--amenFg) 82%,var(--amen));max-width:18ch">{{ a.k }}</span></div></sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="nature" style="padding:clamp(96px,12vw,160px) 0 0">
+      <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px">
+        <div><div style="font-size:12px;text-transform:uppercase;color:var(--acc,#9A5236);letter-spacing:.34em;margin-bottom:12px">{{ t.natLabel }}</div><h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(36px,4.4vw,60px);line-height:1;margin:0">{{ t.natTitle }}</h2></div>
+        <p style="margin:0;align-self:end;font-size:18px;opacity:.8;text-wrap:pretty">{{ t.natSub }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ quadCols }};gap:4px">
+        <sc-for list="{{ natureGrid }}" as="p" hint-placeholder-count="8"><div style="overflow:hidden"><img src="{{ p }}" alt="Jardín y vistas de Nido Tepoztlán" loading="lazy" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.05)"></img></div></sc-for>
+      </div>
+    </section>
+
+    <section id="location" style="position:relative">
+      <div style="position:relative;display:flow-root;height:{{ lc.h }};padding-bottom:{{ lc.pb }};background:var(--ph,#DCCFBF)">
+        <div style="position:absolute;inset:0;overflow:hidden;z-index:0"><img src="assets/map.jpg" alt="Mapa: NiDO, Calle Progreso 1B, Ixcatepec, Tepoztlán" style="position:absolute;top:0;left:{{ lc.imgL }};width:{{ lc.imgW }};height:{{ lc.imgH }};object-fit:cover;filter:sepia(.12)"></img><div data-nido-map="1" data-offset="{{ lc.offX }}" data-offset-y="{{ lc.offY }}" style="position:absolute;inset:0;z-index:1;filter:sepia(.12) saturate(.9)"></div></div>
+        <div style="position:{{ lc.pos }};left:{{ lc.left }};top:{{ lc.top }};transform:{{ lc.tf }};width:{{ lc.w }};margin:{{ lc.m }};background:var(--bg,#EEE6DA);padding:clamp(28px,3.4vw,48px);box-shadow:0 20px 60px rgba(46,37,32,.18)">
+          <div style="text-align:center;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ t.locLabel }}</div>
+          <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(32px,3.2vw,46px);line-height:1.05;margin:14px 0 16px;text-align:center">{{ c.loc.title }}</h2>
+          <p style="margin:0 0 24px;color:var(--mute2,#5E5048);font-size:16px;text-align:center">{{ c.loc.text }}</p>
+          <div style="display:grid;gap:12px;border-top:1px solid var(--line,#C9B9A5);padding-top:18px"><sc-for list="{{ transit }}" as="tr" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:32px 84px minmax(0,1fr);gap:10px;align-items:center"><span style="display:inline-block;width:26px;height:26px;flex:none;background:var(--acc,#9A5236);-webkit-mask:{{ tr.maskCss }};mask:{{ tr.maskCss }}"></span><span style="font-family:'Newsreader',serif;font-size:26px;line-height:1">{{ tr.v }}</span><span style="font-size:14px;color:var(--mute2,#5E5048)">{{ tr.k }}</span></div></sc-for></div>
+          <a href="{{ gmaps }}" target="_blank" style="display:flex;justify-content:center;gap:10px;align-items:center;margin-top:20px;border:1px solid var(--line,#C9B9A5);border-radius:999px;padding:10px 16px;transition:gap .3s,border-color .3s" style-hover="gap:16px;border-color:var(--ink,#2E2520)"><span style="color:var(--acc,#9A5236);letter-spacing:.1em">★★★★★</span><span style="font-family:'Newsreader',serif;font-size:20px">{{ gRating }}</span><span style="font-size:14px;color:var(--mute2,#5E5048)">{{ gLabel }}</span><span>↗</span></a>
+          <div style="font-size:12px;color:var(--mute,#7A6A5E);margin-top:12px;text-align:center">{{ c.loc.note }}</div>
+        </div>
+      </div>
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,120px) clamp(20px,4vw,48px) 0">
+        <h3 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,3.4vw,46px);text-align:center;margin:0 0 48px">{{ t.nearbyTitle }}</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));column-gap:56px">
+          <sc-for list="{{ c.nearby }}" as="nb" hint-placeholder-count="6"><div data-reveal="up" style="border-top:1px solid var(--line,#C9B9A5);padding:22px 0;display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px"><i class="ph-light {{ nb.i }}" style="font-size:30px;color:var(--acc,#9A5236)"></i><div><div style="font-family:'Newsreader',serif;font-size:23px">{{ nb.k }}</div><div style="color:var(--mute2,#5E5048);font-size:15px">{{ nb.d }}</div></div></div></sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="book" style="background:var(--acc,#9A5236);color:var(--card,#F6F0E6);margin-top:clamp(120px,14vw,200px);padding:clamp(100px,12vw,160px) clamp(20px,4vw,48px)">
+      <div style="max-width:1200px;margin:0 auto">
+        <div style="text-align:center;margin-bottom:64px"><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc3,#F2D2BC)">{{ t.staysLabel }}</div><h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,72px);line-height:1.05;margin:16px auto 0;max-width:16ch">{{ t.staysTitle }}</h2></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--acc4,#B97454);border:1px solid var(--acc4,#B97454)">
+          <div data-reveal="up" style="background:var(--acc,#9A5236);padding:40px 32px;text-align:center"><i class="ph-light ph-sun-horizon" style="font-size:34px"></i><div style="font-family:'Newsreader',serif;font-style:italic;font-size:26px;margin-top:8px">{{ t.s1 }}</div><div style="font-family:'Newsreader',serif;font-size:54px;font-weight:300;margin:12px 0 4px">{{ price.night }}</div><div style="font-size:14px;color:var(--acc3,#F2D2BC)">MXN {{ ui.perNight }}</div></div>
+          <div data-reveal="up" data-delay=".15" style="background:var(--acc,#9A5236);padding:40px 32px;text-align:center"><i class="ph-light ph-calendar-dots" style="font-size:34px"></i><div style="font-family:'Newsreader',serif;font-style:italic;font-size:26px;margin-top:8px">{{ t.s2 }}</div><div style="font-family:'Newsreader',serif;font-size:54px;font-weight:300;margin:12px 0 4px">{{ price.week }}</div><div style="font-size:14px;color:var(--acc3,#F2D2BC)">MXN · {{ ui.weekNote }}</div><div style="margin-top:14px;display:inline-block;border:1px solid var(--acc3,#F2D2BC);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--card,#F6F0E6)">{{ price.weekNight }} {{ ui.perNight }}</div></div>
+          <div data-reveal="up" data-delay=".3" style="background:var(--acc,#9A5236);padding:40px 32px;text-align:center"><i class="ph-light ph-moon-stars" style="font-size:34px"></i><div style="font-family:'Newsreader',serif;font-style:italic;font-size:26px;margin-top:8px">{{ t.s3 }}</div><div style="font-family:'Newsreader',serif;font-size:54px;font-weight:300;margin:12px 0 4px">{{ price.month }}</div><div style="font-size:14px;color:var(--acc3,#F2D2BC)">MXN · {{ ui.monthNote }}</div><div style="margin-top:14px;display:inline-block;border:1px solid var(--acc3,#F2D2BC);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--card,#F6F0E6)">{{ price.monthNight }} {{ ui.perNight }}</div></div>
+        </div>
+        <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;align-items:end">
+          <label style="display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--acc2,#D9A383);padding-bottom:10px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc3,#F2D2BC)">{{ ui.checkin }}</span><input type="date" value="{{ ci }}" onChange="{{ setCi }}" style="background:none;border:none;color:var(--card,#F6F0E6);padding:0;color-scheme:dark"></input></label>
+          <label style="display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--acc2,#D9A383);padding-bottom:10px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc3,#F2D2BC)">{{ ui.checkout }}</span><input type="date" value="{{ co }}" onChange="{{ setCo }}" style="background:none;border:none;color:var(--card,#F6F0E6);padding:0;color-scheme:dark"></input></label>
+          <label style="display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--acc2,#D9A383);padding-bottom:10px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc3,#F2D2BC)">{{ ui.room }}</span><select value="{{ sel }}" onChange="{{ setSel }}" style="background:var(--acc,#9A5236);border:none;color:var(--card,#F6F0E6);padding:0"><sc-for list="{{ roomOpts }}" as="o"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></select></label>
+          <a href="{{ wa }}" target="_blank" style="background:var(--card,#F6F0E6);color:var(--ink,#2E2520);padding:16px 20px;text-align:center;border-radius:999px;display:inline-flex;justify-content:center;align-items:center;gap:10px;transition:gap .3s" style-hover="gap:16px;color:var(--ink,#2E2520)"><i class="ph-light ph-whatsapp-logo" style="font-size:20px"></i>{{ ui.sendWa }}</a>
+        </div>
+        <div style="text-align:center;margin-top:28px;font-family:'Newsreader',serif;font-style:italic;font-size:22px;color:var(--acc3,#F2D2BC)">
+          <sc-if value="{{ q.has }}">{{ q.nights }} {{ ui.nights }} · {{ q.total }} MXN<sc-if value="{{ q.hasDiscount }}"> · {{ ui.youSave }} {{ q.save }}</sc-if></sc-if>
+        </div>
+        <div style="text-align:center;margin-top:14px;font-size:14px"><a href="{{ mail }}" target="_blank" rel="noopener" style="color:var(--card,#F6F0E6);display:inline-flex;gap:8px;align-items:center;padding-bottom:2px;background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .5s cubic-bezier(.6,0,.2,1)" style-hover="background-size:100% 1px;color:var(--card,#F6F0E6)"><i class="ph-light ph-envelope-simple" style="font-size:18px"></i>{{ orEmail }} · {{ email }}</a></div>
+      </div>
+    </section>
+
+    <section id="life" style="position:relative;min-height:90svh;overflow:hidden;display:flex;align-items:center">
+      <img data-par="0.12" src="{{ rooms.3.photos.3 }}" alt="Coliving en Tepoztlán" style="position:absolute;inset:-10% 0;width:100%;height:120%;object-fit:cover;background:#5A4A40"></img>
+      <div style="position:relative;margin:80px clamp(20px,6vw,96px);background:var(--bg,#EEE6DA);padding:clamp(32px,4vw,56px);max-width:540px">
+        <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ ui.nav.life }}</div>
+        <h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(34px,3.6vw,52px);line-height:1.05;margin:14px 0 24px">{{ t.lifeTitle }}</h2>
+        <sc-for list="{{ c.life }}" as="l" hint-placeholder-count="3"><div style="margin-bottom:16px;max-width:40ch"><span style="font-family:'Newsreader',serif;font-style:italic;font-size:21px">{{ l.k }}.</span> <span style="color:var(--mute2,#5E5048)">{{ l.d }}</span></div></sc-for>
+      </div>
+    </section>
+
+    <section id="work" style="max-width:1200px;margin:0 auto;padding:clamp(120px,14vw,200px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:64px;align-items:center">
+      <div style="position:relative;height:clamp(380px,46vw,620px);overflow:hidden;background:var(--ph,#DCCFBF)"><image-slot id="common-work" shape="rect" placeholder="{{ t.workPh }}" src="{{ workMain }}"></image-slot></div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ ui.nav.work }}</div>
+        <h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(36px,4vw,60px);line-height:1.05;margin:14px 0 32px">{{ t.workTitle }}</h2>
+        <sc-for list="{{ work }}" as="w" hint-placeholder-count="4"><div data-reveal="up" style="border-top:1px solid var(--line,#C9B9A5);padding:16px 0;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px"><i class="ph-light {{ w.i }}" style="font-size:26px;color:var(--acc,#9A5236)"></i><div><div style="font-family:'Newsreader',serif;font-size:22px">{{ w.k }}</div><div style="color:var(--mute2,#5E5048);font-size:15px">{{ w.d }}</div></div></div></sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1000px;margin:0 auto;padding:clamp(120px,14vw,200px) 24px 0;text-align:center">
+      <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:28px">{{ t.reviewsLabel }}</div>
+      <div style="display:flex;justify-content:center;gap:clamp(24px,6vw,72px);flex-wrap:wrap;margin-bottom:64px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-family:'Newsreader',serif;font-weight:300;font-size:56px;line-height:1">4.8</span><span style="color:var(--acc,#9A5236);letter-spacing:.1em;position:relative;display:inline-block"><span style="opacity:.25">★★★★★</span><span style="position:absolute;left:0;top:0;width:96%;overflow:hidden;white-space:nowrap">★★★★★</span></span><span style="font-size:14px;color:var(--mute,#7A6A5E);display:inline-flex;gap:6px;align-items:center"><i class="ph-light ph-airbnb-logo" style="font-size:16px"></i>66 {{ ui.reviews }} Airbnb</span></div>
+        <div style="width:1px;background:var(--line,#C9B9A5);align-self:stretch"></div>
+        <a href="{{ gmaps }}" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-family:'Newsreader',serif;font-weight:300;font-size:56px;line-height:1">5.0</span><span style="color:var(--acc,#9A5236);letter-spacing:.1em">★★★★★</span><span style="font-size:14px;color:var(--mute,#7A6A5E);display:inline-flex;gap:6px;align-items:center"><i class="ph-light ph-google-logo" style="font-size:16px"></i>5 {{ ui.reviews }} Google ↗</span></a>
+      </div>
+      <sc-for list="{{ reviews }}" as="rv" hint-placeholder-count="2"><figure data-reveal="up" style="margin:0 0 72px"><blockquote style="margin:0;font-family:'Newsreader',serif;font-weight:300;font-style:italic;font-size:clamp(28px,3.4vw,46px);line-height:1.25;text-wrap:balance">“{{ rv.text }}”</blockquote><figcaption style="margin-top:20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute,#7A6A5E)">{{ rv.name }} — {{ rv.from }} · {{ rv.stay }}</figcaption></figure></sc-for>
+    </section>
+
+    <section id="guide" style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;margin-bottom:56px">
+        <div><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ t.guideLabel }}</div><h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,72px);line-height:1.02;margin:14px 0 0">{{ t.guideTitle }}</h2></div>
+        <p style="margin:0;align-self:end;color:var(--mute2,#5E5048);font-size:18px;text-wrap:pretty">{{ c.guideIntro }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));column-gap:64px">
+        <sc-for list="{{ guide }}" as="g" hint-placeholder-count="6"><div data-reveal="up" style="border-top:1px solid var(--line,#C9B9A5);padding:24px 0;display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px"><span style="display:inline-block;width:30px;height:30px;background:var(--acc,#9A5236);-webkit-mask:{{ g.maskCss }};mask:{{ g.maskCss }}"></span><div><h3 style="font-family:'Newsreader',serif;font-weight:400;font-size:26px;margin:0 0 2px">{{ g.k }}</h3><div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:6px">{{ g.t }}</div><p style="margin:0;color:var(--mute2,#5E5048);font-size:15px">{{ g.d }}</p></div></div></sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+      <h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(34px,4vw,56px);line-height:1.05;margin:0 0 48px;text-align:center">{{ t.getTitle }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px;text-align:center"><sc-for list="{{ getHere }}" as="gh" hint-placeholder-count="3"><div data-reveal="up"><i class="ph-light {{ gh.i }}" style="font-size:34px;color:var(--acc,#9A5236)"></i><div style="font-family:'Newsreader',serif;font-style:italic;font-size:26px;margin:8px 0 10px">{{ gh.k }}</div><p style="margin:0;color:var(--mute2,#5E5048);font-size:15px">{{ gh.d }}</p></div></sc-for></div>
+    </section>
+
+    <section id="faq" style="max-width:820px;margin:0 auto;padding:clamp(100px,12vw,160px) 24px 0">
+      <h2 data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,64px);margin:0 0 40px;text-align:center">{{ t.faqTitle }}</h2>
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="8"><div style="border-top:1px solid var(--line,#C9B9A5)"><button onClick="{{ f.toggle }}" style="width:100%;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;gap:16px;text-align:left;cursor:pointer;color:var(--ink,#2E2520);font-family:'Newsreader',serif;font-size:22px"><span>{{ f.q }}</span><i class="ph-light {{ f.icon }}" style="font-size:20px;color:var(--acc,#9A5236)"></i></button><sc-if value="{{ f.open }}"><p style="margin:0 0 24px;color:var(--mute2,#5E5048)">{{ f.a }}</p></sc-if></div></sc-for>
+    </section>
+
+    <section style="padding:clamp(120px,14vw,200px) 0 0;text-align:center">
+      <img src="{{ logo }}" alt="Nido" style="width:72px;height:72px;border-radius:50%;object-fit:cover"></img>
+      <p data-reveal="up" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(24px,2.6vw,34px);max-width:30ch;margin:16px auto 12px;line-height:1.3">{{ t.hostsText }}</p>
+      <p style="color:var(--mute,#7A6A5E);margin:0 0 48px;font-size:15px">{{ hostNames }} · ES / EN / RU</p>
+      <div style="margin:56px calc(50% - 50vw) 0">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding:0 clamp(20px,4vw,56px) 28px">
+          <div style="text-align:left"><div style="display:flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc,#9A5236)"><i class="ph-light ph-instagram-logo" style="font-size:20px"></i>Instagram</div><h2 style="font-family:'Newsreader',serif;font-weight:300;font-style:italic;font-size:clamp(44px,7vw,112px);line-height:.95;margin:12px 0 0">{{ igTitle }}</h2><p style="margin:12px 0 0;font-size:18px;opacity:.8;max-width:48ch">{{ igSub }}</p></div>
+          <a href="{{ igUrl }}" target="_blank" style="display:inline-flex;gap:10px;align-items:center;background:var(--ink,#2E2520);color:var(--card,#F6F0E6);padding:16px 28px;border-radius:999px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;transition:gap .3s" style-hover="gap:16px;color:var(--card,#F6F0E6)"><i class="ph-light ph-instagram-logo" style="font-size:20px"></i>{{ ui.follow }} <span>→</span></a>
+        </div>
+        <div style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 clamp(20px,4vw,56px);padding:4px clamp(20px,4vw,56px) 16px;scrollbar-width:thin">
+          <sc-for list="{{ igPosts }}" as="p" hint-placeholder-count="5"><a href="{{ igUrl }}" target="_blank" style="flex:0 0 clamp(280px,26vw,360px);scroll-snap-align:start;background:#fff;border:1px solid #E2D8CA;border-radius:10px;overflow:hidden;color:#262626;text-align:left;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-4px);box-shadow:0 14px 30px rgba(46,37,32,.12);color:#262626">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px"><span style="width:34px;height:34px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#F9CE34,#EE2A7B,#6228D7);display:flex"><img src="{{ logo }}" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #fff"></img></span><span style="font-size:14px;font-weight:600;flex:1">nidotepoztlan</span><i class="ph-bold ph-dots-three" style="font-size:20px"></i></div>
+            <div style="aspect-ratio:3/4;background:#EEE"><img src="{{ p.src }}" alt="{{ p.cap }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></div>
+            <div style="display:flex;gap:14px;padding:10px 12px 4px;font-size:24px"><i class="ph ph-heart"></i><i class="ph ph-chat-circle"></i><i class="ph ph-paper-plane-tilt"></i><i class="ph ph-bookmark-simple" style="margin-left:auto"></i></div>
+            <div style="padding:2px 12px 14px;font-size:14px;line-height:1.4"><strong style="font-weight:600">nidotepoztlan</strong> {{ p.cap }}</div>
+          </a></sc-for>
+        </div>
+      </div>
+      
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isRoom }}">
+  <main>
+    <section style="position:relative;height:92svh;min-height:520px;overflow:hidden;background:var(--dark,#3A2E27)">
+      <sc-for list="{{ roomSlides }}" as="s" hint-placeholder-count="1"><div style="position:absolute;inset:0;opacity:{{ s.op }};transition:opacity 1.4s ease"><img src="{{ s.src }}" alt="{{ cur.name }}" style="width:100%;height:100%;object-fit:cover;animation:kb 20s ease-out both alternate infinite"></img></div></sc-for>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,22,18,.5),rgba(30,22,18,0) 40%,rgba(30,22,18,.65));pointer-events:none"></div>
+      <div style="position:absolute;left:0;right:0;bottom:max(8svh,110px);text-align:center;color:var(--card,#F6F0E6);padding:0 24px">
+        <a onClick="{{ goHome }}" style="cursor:pointer;color:var(--card,#F6F0E6);font-size:12px;letter-spacing:.24em;text-transform:uppercase;display:inline-flex;gap:8px;transition:gap .3s" style-hover="gap:14px;color:var(--card,#F6F0E6)"><span>←</span> {{ ui.back }}</a>
+        <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(64px,10vw,150px);line-height:1;margin:16px 0 20px;animation:fin 1.4s .2s both">{{ cur.name }}</h1>
+        <div style="display:flex;gap:10px;justify-content:center"><sc-for list="{{ roomSlides }}" as="s" hint-placeholder-count="5"><button onClick="{{ s.go }}" aria-label="foto" style="width:52px;height:52px;border-radius:50%;border:1px solid {{ s.ring }};padding:3px;cursor:pointer;background:none"><img src="{{ s.thumb }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%"></img></button></sc-for></div>
+      </div>
+    </section>
+    <section style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+      <div>
+        <div style="font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:20px">★ {{ cur.rating }} · <a onClick="{{ goRev }}" style="cursor:pointer;color:var(--acc,#9A5236);text-decoration:underline;text-underline-offset:4px">{{ cur.reviews }} {{ ui.reviews }}</a></div>
+        <p style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(26px,2.8vw,38px);line-height:1.3;margin:0 0 28px;text-wrap:pretty">{{ cur.desc }}</p>
+        <p style="color:var(--mute2,#5E5048);margin:0 0 56px">{{ c.houseText }}</p>
+        <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:24px">{{ t.roomIncludes }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px 24px"><sc-for list="{{ roomAmen }}" as="a" hint-placeholder-count="12"><div style="display:flex;gap:12px;align-items:center"><i class="ph-light {{ a.i }}" style="font-size:30px;color:var(--ink,#2E2520);flex:none"></i><span style="font-family:'Newsreader',serif;font-size:18px;line-height:1.2">{{ a.k }}</span></div></sc-for></div>
+      </div>
+      <aside style="position:sticky;top:100px;background:var(--card,#F6F0E6);padding:36px">
+        <div style="text-align:center"><i class="ph-light ph-bird" style="font-size:30px;color:var(--acc,#9A5236)"></i></div>
+        <div style="font-family:'Newsreader',serif;font-weight:300;font-size:48px;line-height:1;text-align:center;margin-top:8px">{{ price.night }} <span style="font-family:'Figtree';font-size:15px;color:var(--mute,#7A6A5E)">MXN {{ ui.perNight }}</span></div>
+        <div style="font-size:14px;color:var(--mute,#7A6A5E);margin:10px 0 28px;text-align:center">{{ ui.rulesNote }}</div>
+        <div style="display:grid;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--line,#C9B9A5);padding-bottom:8px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute,#7A6A5E)">{{ ui.checkin }}</span><input type="date" value="{{ ci }}" onChange="{{ setCi }}" style="background:none;border:none;padding:0;color:var(--ink,#2E2520)"></input></label>
+          <label style="display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--line,#C9B9A5);padding-bottom:8px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute,#7A6A5E)">{{ ui.checkout }}</span><input type="date" value="{{ co }}" onChange="{{ setCo }}" style="background:none;border:none;padding:0;color:var(--ink,#2E2520)"></input></label>
+        </div>
+        <sc-if value="{{ q.has }}"><div style="margin-top:20px;font-family:'Newsreader',serif;font-size:20px"><div style="display:flex;justify-content:space-between"><span>{{ q.nights }} {{ ui.nights }}</span><span>{{ q.base }}</span></div><sc-if value="{{ q.hasDiscount }}"><div style="display:flex;justify-content:space-between;color:var(--acc,#9A5236);font-style:italic"><span>−{{ q.pct }}</span><span>−{{ q.save }}</span></div></sc-if><div style="display:flex;justify-content:space-between;border-top:1px solid var(--line,#C9B9A5);margin-top:8px;padding-top:8px"><span>{{ ui.total }}</span><span>{{ q.total }} MXN</span></div></div></sc-if>
+        <sc-if value="{{ noQuote }}" hint-placeholder-val="{{ true }}"><div style="margin-top:18px;font-size:14px;color:var(--mute,#7A6A5E)">{{ ui.pickDates }}</div></sc-if>
+        <a href="{{ waRoom }}" target="_blank" style="display:flex;justify-content:center;align-items:center;gap:10px;margin-top:24px;background:var(--acc,#9A5236);color:var(--card,#F6F0E6);padding:16px;border-radius:999px;transition:gap .3s,background .3s" style-hover="gap:16px;background:var(--ink,#2E2520);color:var(--card,#F6F0E6)"><i class="ph-light ph-whatsapp-logo" style="font-size:20px"></i>{{ ui.sendWa }}</a>
+        <a href="{{ mailRoom }}" target="_blank" rel="noopener" style="display:flex;justify-content:center;align-items:center;gap:10px;margin-top:10px;border:1px solid var(--ink,#2E2520);padding:15px;border-radius:999px;transition:gap .3s" style-hover="gap:16px"><i class="ph-light ph-envelope-simple" style="font-size:20px"></i>{{ emailBtn }}</a>
+      </aside>
+    </section>
+    <section style="padding:clamp(80px,10vw,140px) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:4px">
+      <sc-for list="{{ curRest }}" as="p" hint-placeholder-count="4"><div style="overflow:hidden"><img data-reveal="scale" src="{{ p }}" alt="{{ cur.name }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--ph,#DCCFBF)"></img></div></sc-for>
+    </section>
+    <sc-if value="{{ hasRev }}">
+    <section id="room-reviews" style="padding:clamp(80px,10vw,140px) 0 0">
+      <div style="max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,48px);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px">
+        <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(34px,4vw,56px);line-height:1.05;margin:0">{{ revTitle }}</h2>
+        <div style="display:flex;gap:10px"><button onClick="{{ revPrev }}" aria-label="Anterior" style="width:52px;height:52px;border-radius:50%;border:1px solid var(--ink,#2E2520);background:none;color:var(--ink,#2E2520);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s" style-hover="background:var(--ink,#2E2520);color:var(--bg,#EEE6DA)"><i class="ph-light ph-arrow-left" style="font-size:20px"></i></button><button onClick="{{ revNext }}" aria-label="Siguiente" style="width:52px;height:52px;border-radius:50%;border:1px solid var(--ink,#2E2520);background:none;color:var(--ink,#2E2520);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s" style-hover="background:var(--ink,#2E2520);color:var(--bg,#EEE6DA)"><i class="ph-light ph-arrow-right" style="font-size:20px"></i></button></div>
+      </div>
+      <div id="revTrack" style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 clamp(20px,4vw,48px) 8px;scroll-padding:0 clamp(20px,4vw,48px)">
+        <sc-for list="{{ revs }}" as="rv" hint-placeholder-count="3"><article data-rev="1" style="flex:none;width:{{ revW }};scroll-snap-align:start;background:var(--card,#F6F0E6);padding:32px;display:flex;flex-direction:column;gap:22px;box-sizing:border-box">
+          <div style="display:flex;gap:3px;color:var(--acc,#9A5236)"><sc-for list="{{ rv.starList }}" as="st"><span style="font-size:16px;line-height:1;opacity:{{ st.op }}">★</span></sc-for></div>
+          <p style="font-family:'Newsreader',serif;font-weight:300;font-size:20px;line-height:1.45;margin:0;flex:1;text-wrap:pretty">“{{ rv.text }}”</p>
+          <div style="display:flex;gap:14px;align-items:center;border-top:1px solid var(--line,#C9B9A5);padding-top:20px">
+            <sc-if value="{{ rv.hasPhoto }}"><img src="{{ rv.photo }}" alt="{{ rv.name }}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;background:var(--ph,#DCCFBF)"></img></sc-if>
+            <sc-if value="{{ rv.noPhoto }}"><div style="width:52px;height:52px;border-radius:50%;flex:none;background:var(--acc,#9A5236);color:var(--card,#F6F0E6);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-size:24px">{{ rv.initial }}</div></sc-if>
+            <div style="min-width:0"><div style="font-family:'Newsreader',serif;font-size:20px;line-height:1.1">{{ rv.name }}</div><div style="font-size:13px;color:var(--mute,#7A6A5E);margin-top:4px">{{ rv.meta }}</div></div>
+          </div>
+        </article></sc-for>
+      </div>
+    </section>
+    </sc-if>
+    <section style="max-width:1400px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+      <div style="text-align:center;margin-bottom:40px"><div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236)">{{ t.commonsLabel }}</div><h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(34px,4vw,56px);margin:12px 0 0">{{ t.sharedTitle }}</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)"><sc-for list="{{ commons }}" as="cm" hint-placeholder-count="4"><figure style="margin:0;text-align:center"><div style="position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--ph,#DCCFBF)"><image-slot id="common-{{ cm.id }}" shape="rect" placeholder="{{ cm.ph }}" src="{{ cm.src }}"></image-slot></div><figcaption style="margin-top:14px"><i class="ph-light {{ cm.icon }}" style="font-size:26px;color:var(--acc,#9A5236)"></i><div style="font-family:'Newsreader',serif;font-size:24px">{{ cm.k }}</div></figcaption></figure></sc-for></div>
+    </section>
+    <section style="max-width:1200px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center">
+      <div style="position:relative;height:360px;overflow:hidden;background:var(--ph,#DCCFBF)"><img src="assets/map.jpg" alt="Mapa: NiDO, Calle Progreso 1B, Ixcatepec, Tepoztlán" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.12);z-index:0"></img><div data-nido-map="1" style="position:absolute;inset:0;z-index:1;filter:sepia(.12) saturate(.9)"></div></div>
+      <div><h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,3.4vw,46px);line-height:1.05;margin:0 0 24px">{{ c.loc.title }}</h2><div style="display:grid;gap:16px"><sc-for list="{{ transit }}" as="tr" hint-placeholder-count="3"><div style="display:flex;gap:14px;align-items:center"><span style="display:inline-block;width:28px;height:28px;flex:none;background:var(--acc,#9A5236);-webkit-mask:{{ tr.maskCss }};mask:{{ tr.maskCss }}"></span><span><span style="font-family:'Newsreader',serif;font-size:24px">{{ tr.v }}</span> <span style="color:var(--mute2,#5E5048)">{{ tr.k }}</span></span></div></sc-for></div></div>
+    </section>
+    <section style="max-width:1400px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+      <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc,#9A5236);margin-bottom:24px;text-align:center">{{ ui.otherRooms }}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px"><sc-for list="{{ others }}" as="o" hint-placeholder-count="3"><article onClick="{{ o.open }}" style="cursor:pointer;text-align:center"><div style="overflow:hidden"><img src="{{ o.thumb }}" alt="{{ o.name }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform 1.2s" style-hover="transform:scale(1.05)"></img></div><div style="font-family:'Newsreader',serif;font-size:28px;margin-top:14px">{{ o.name }}</div></article></sc-for></div>
+    </section>
+  </main>
+  </sc-if>
+
+  <footer style="background:var(--ink,#2E2520);color:var(--bg,#EEE6DA);margin-top:clamp(120px,14vw,200px);padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 40px;text-align:center">
+    <img src="assets/logo-white.png" alt="Nido · Tepoztlán" style="display:block;width:clamp(150px,16vw,200px);height:auto;margin:0 auto"></img>
+    <h2 style="font-family:'Newsreader',serif;font-weight:300;font-style:italic;font-size:clamp(44px,6vw,88px);line-height:1.05;margin:16px auto 0;max-width:14ch">{{ t.footer }}</h2>
+    <a href="{{ waPlain }}" target="_blank" style="display:inline-flex;gap:10px;align-items:center;margin-top:36px;color:var(--bg,#EEE6DA);border:1px solid var(--bg,#EEE6DA);padding:16px 32px;border-radius:999px;transition:background .3s,color .3s,gap .3s" style-hover="background:var(--bg,#EEE6DA);color:var(--ink,#2E2520);gap:16px"><i class="ph-light ph-whatsapp-logo" style="font-size:20px"></i>{{ ui.askWa }} · {{ phone }}</a>
+    <div style="margin-top:18px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;font-size:15px"><a href="{{ mailPlain }}" target="_blank" rel="noopener" style="color:var(--bg,#EEE6DA);display:inline-flex;gap:8px;align-items:center"><i class="ph-light ph-envelope-simple" style="font-size:20px"></i>{{ email }}</a><a href="{{ gmaps }}" target="_blank" style="color:var(--bg,#EEE6DA);display:inline-flex;gap:8px;align-items:center"><i class="ph-light ph-google-logo" style="font-size:20px"></i>★ {{ gRating }} {{ gLabel }}</a></div>
+    <div style="margin-top:80px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.75"><span>Nido · Ixcatepec</span><span>{{ ui.rights }}</span><span>© {{ year }}</span></div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#9A5236&quot;,&quot;#B5562F&quot;,&quot;#C2803A&quot;,&quot;#6E7F4E&quot;,&quot;#2F6B5E&quot;,&quot;#3E5C8A&quot;,&quot;#8A3B5C&quot;,&quot;#6A4A7A&quot;,&quot;#51323A&quot;,&quot;#874B5A&quot;],&quot;default&quot;:&quot;#874B5A&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;},&quot;background&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#EEE6DA&quot;,&quot;#F4F1EA&quot;,&quot;#F7F3EC&quot;,&quot;#EBEBEB&quot;,&quot;#E6EAE0&quot;,&quot;#F2E4DC&quot;,&quot;#EDE7F0&quot;,&quot;#E9EDF1&quot;,&quot;#F3ECD9&quot;,&quot;#AAA1A4&quot;],&quot;default&quot;:&quot;#EEE6DA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;},&quot;ink&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#2E2520&quot;,&quot;#1A1917&quot;,&quot;#3B2F2A&quot;,&quot;#1F2A24&quot;,&quot;#23263A&quot;,&quot;#3A2430&quot;,&quot;#2A2F3A&quot;,&quot;#40352C&quot;],&quot;default&quot;:&quot;#2E2520&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colors&quot;},&quot;headerColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#EEE6DA&quot;,&quot;#F6F0E6&quot;,&quot;#FFFFFF&quot;,&quot;#EBEBEB&quot;,&quot;#2E2520&quot;,&quot;#9A5236&quot;,&quot;#5B6B4A&quot;,&quot;#3E4A5C&quot;,&quot;#8A3B5C&quot;],&quot;default&quot;:&quot;#EEE6DA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sticky header&quot;},&quot;amenitiesColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#2E2520&quot;,&quot;#9A5236&quot;,&quot;#5B6B4A&quot;,&quot;#2F6B5E&quot;,&quot;#3E4A5C&quot;,&quot;#8A3B5C&quot;,&quot;#EEE6DA&quot;,&quot;#F6F0E6&quot;,&quot;#EBEBEB&quot;],&quot;default&quot;:&quot;#F6F0E6&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Qué incluye&quot;}}">
+const COPY={
+es:{introEyebrow:'Coliving con estilo · Tepoztlán, Morelos',introA:'Habitaciones para quedarse,',introB:'en Tepoztlán.',introSub:'Una casa de cinco habitaciones en el barrio de Ixcatepec, con cocina, jardín y dos salas compartidas. Para una semana, un mes o un fin de semana largo.',pill1:'10 min al centro',pill2:'Cafés y tiendas a pasos',fromLabel:'desde',gal:{kitchen:['La cocina','Compartida, equipada y llena de luz natural.'],living1:['Sala de abajo','Sofás de terciopelo, arcos de ladrillo y luz de jardín.'],living2:['Sala de arriba','Ventanales, un mural y mesa para comer o trabajar.'],garden:['El jardín','Flores, árboles frutales y vista a los cerros.'],work:['Rincones de trabajo','Escritorio bajo la escalera y mesa grande arriba.']},natLabel:'Jardín y alrededores',natTitle:'Un oasis a los pies del Tepozteco',natSub:'Flores, árboles frutales, rincones con sombra y vista abierta a los cerros desde la azotea.',h1a:'Quédate lo suficiente para',h1b:'aprender el nombre de los cerros.',commonsLabel:'La casa',commonsTitle:'Tu cuarto es privado. La casa, compartida.',commonsSub:'Una cocina llena de luz, dos salas, rincones para trabajar y un jardín con vista a los cerros. Aquí pasan las mañanas lentas y las cenas largas.',roomsTitle:'Cuatro habitaciones, un mismo jardín.',bookThis:'Reservar esta habitación',amenTitle:'Todo lo necesario para quedarte un buen rato.',locLabel:'Ubicación',openMap:'Abrir mapa',nearbyTitle:'Todo a unos pasos',staysLabel:'Estancias',staysTitle:'El tiempo aquí se mide distinto.',s1:'Un fin de semana',s2:'Una semana',s3:'Una luna',lifeTitle:'Una casa compartida, sin prisa.',workTitle:'Trabajar con el sonido de los pájaros.',workPh:'Foto: rincón de trabajo',reviewsLabel:'Quienes pasaron por aquí',guideLabel:'Alrededores',guideTitle:'Lo que hay más allá de la puerta.',getTitle:'A una hora de la ciudad, a un mundo de distancia.',faqTitle:'Antes de llegar',hostsText:'Te recibimos como en casa. Escríbenos cuando quieras.',footer:'El nido te espera.',roomIncludes:'La habitación incluye',sharedTitle:'Lo que compartes',ph:{kitchen:'Foto: la cocina',living:'Foto: sala común',garden:'Foto: el jardín',work:'Foto: rincón de trabajo'}},
+en:{introEyebrow:'Stylish coliving · Tepoztlán, Morelos',introA:'Rooms to stay in,',introB:'in Tepoztlán.',introSub:'A five-bedroom house in the Ixcatepec neighborhood, with a shared kitchen, garden and two living rooms. For a week, a month or a long weekend.',pill1:'10 min to downtown',pill2:'Cafés & shops steps away',fromLabel:'from',gal:{kitchen:['The kitchen','Shared, fully equipped and full of natural light.'],living1:['Downstairs lounge','Velvet sofas, brick arches and garden light.'],living2:['Upstairs lounge','Big windows, a mural and a table to eat or work.'],garden:['The garden','Flowers, fruit trees and views of the hills.'],work:['Work corners','A desk under the stairs and a big table upstairs.']},natLabel:'Garden & surroundings',natTitle:'An oasis at the foot of the Tepozteco',natSub:'Flowers, fruit trees, shaded corners and open views of the hills from the rooftop.',h1a:'Stay long enough to',h1b:'learn the names of the hills.',commonsLabel:'The house',commonsTitle:'Your room is private. The house is shared.',commonsSub:'A sunlit kitchen, two living rooms, corners to work and a garden facing the hills. Where slow mornings and long dinners happen.',roomsTitle:'Four rooms, one garden.',bookThis:'Book this room',amenTitle:'Everything you need to stay a while.',locLabel:'Location',openMap:'Open map',nearbyTitle:'Everything steps away',staysLabel:'Stays',staysTitle:'Time is measured differently here.',s1:'A weekend',s2:'A week',s3:'A moon',lifeTitle:'A shared house, without the rush.',workTitle:'Working to the sound of birds.',workPh:'Photo: work corner',reviewsLabel:'Those who passed through',guideLabel:'Surroundings',guideTitle:'What lies beyond the door.',getTitle:'An hour from the city, a world away.',faqTitle:'Before you arrive',hostsText:'We welcome you like family. Write to us anytime.',footer:'The nest is waiting.',roomIncludes:'The room includes',sharedTitle:'What you share',ph:{kitchen:'Photo: the kitchen',living:'Photo: living room',garden:'Photo: the garden',work:'Photo: work corner'}}};
+const GI=['ph-mountains','ph-basket','ph-church','ph-drop','ph-ice-cream','ph-tree'],GH=['ph-car-simple','ph-bus','ph-airplane-landing'],WI=['ph-wifi-high','ph-desk','ph-moon-stars'];
+const RAD=['0','0','0','0'],RR=['0','0','0','0'];
+const GAL=[['kitchen','ph-cooking-pot',['uploads/kitchen1.jpeg','uploads/kitchen9.jpeg','uploads/kitchen6.jpeg','uploads/kitchen10.jpeg']],['living1','ph-couch',['uploads/livingroom1_8.jpeg','uploads/livingroom1_4.jpeg','uploads/livingroom1_3.jpeg','uploads/livingroom1_1.jpeg']],['living2','ph-armchair',['uploads/livingroom2_6.jpeg','uploads/livingroom2_10.jpeg','uploads/livingroom2_8.jpeg','uploads/livingroom2_3.jpeg']],['garden','ph-plant',['assets/garden-path.jpg','assets/door.jpg','assets/flower-orange.jpg','assets/papaya.jpg']],['work','ph-desk',['uploads/livingroom1_2.jpeg','uploads/livingroom2_5.jpeg']]];
+const MI=p=>'url("data:image/svg+xml,'+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='"+p+"'/></svg>").replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'") center/contain no-repeat';
+const TICON=[MI('M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z'),MI('M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7'),MI('M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z')];
+class Component extends DCLogic {
+  state = {...(window.NIDO ? window.NIDO.state() : {lang:'es',view:'home',room:0,sel:-1,ci:'',co:'',faq:-1}),slide:0,rs:0,past:false};
+  componentDidMount(){
+    this._rz=()=>this._mq();addEventListener('resize',this._rz);this._mq();
+    const go=()=>{this.setState(window.NIDO.state(),()=>setTimeout(()=>window.NIDO.reveal(),60));};
+    if(window.NIDO)go(); else {const iv=setInterval(()=>{if(window.NIDO){clearInterval(iv);go();}},50);}
+    this._iv=setInterval(()=>this.setState(s=>({slide:(s.slide+1)%4})),6000);
+    this._on=()=>{const vh=innerHeight;document.querySelectorAll('[data-par]').forEach(el=>{const f=+el.getAttribute('data-par');const r=el.parentElement.getBoundingClientRect();el.style.translate=`0 ${((r.top+r.height/2)-vh/2)*-f}px`;});
+      const past=scrollY>vh*0.85; if(past!==this.state.past)this.setState({past});};
+    addEventListener('scroll',this._on,{passive:true});
+  }
+  componentWillUnmount(){clearInterval(this._iv);removeEventListener('scroll',this._on);}
+  componentDidUpdate(p,s){ if(window.NIDO&&(s.view!==this.state.view||s.room!==this.state.room)){ if(this.state.rs)this.setState({rs:0}); setTimeout(()=>window.NIDO.reveal(),60);} }
+  _mq(){const m=window.innerWidth<760;if(m!==this.state.mob)this.setState({mob:m});}
+  mobVals(b){const mob=!!this.state.mob,menu=!!this.state.menu;return {mob,navDisp:mob?'none':'flex',stickyPos:mob?'static':'sticky',menuOpen:menu,burgerDisp:mob?'flex':'none',toggleMenu:()=>this.setState({menu:!menu}),navM:b.navAll.map(n=>({...n,go:()=>{this.setState({menu:false});setTimeout(n.go,30);}})),stripCols:mob?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))',quadCols:mob?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))',span2:mob?'auto':'span 2',guideCols:mob?'36px minmax(0,1fr)':'48px minmax(0,1fr) minmax(0,1.4fr)',gpCol:mob?'2 / -1':'auto',
+    lc:mob?{pos:'relative',left:'auto',top:'auto',tf:'none',w:'auto',m:'300px 12px 0',h:'auto',pb:'12px',offX:'0',offY:'320',imgL:'0',imgW:'100%',imgH:'300px'}:{pos:'absolute',left:'clamp(16px,5vw,80px)',top:'50%',tf:'translateY(-50%)',w:'min(460px,calc(100% - 32px))',m:'0',h:'clamp(520px,80vh,760px)',pb:'0',offX:'300',offY:'0',imgL:'-8%',imgW:'160%',imgH:'100%'}};}
+  revVals(b){const all=(window.NIDO_REVIEWS||{})[b.cur.slug]||[],es=b.isEs,mob=!!this.state.mob;
+    const M=es?['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const trk=()=>document.getElementById('revTrack');const st=()=>{const el=trk(),c=el&&el.querySelector('[data-rev]');return c?c.offsetWidth+16:0;};
+    const revs=all.filter(r=>r.stars>=4).map(r=>{const [y,m]=r.date.split('-');const loc=es?r.loc:r.loc.replace('Ciudad de México','Mexico City').replace(', México',', Mexico').replace(', Francia',', France').replace(', Arabia Saudita',', Saudi Arabia').replace(', Canadá',', Canada').replace(', EE. UU.',', GA');
+      return {...r,text:es?r.es:r.en,hasPhoto:!!r.photo,noPhoto:!r.photo,initial:r.name[0],meta:[loc,M[+m-1]+' '+y].filter(Boolean).join(' · '),starList:[1,2,3,4,5].map(i=>({op:i<=r.stars?1:.25}))};});
+    return {revs,hasRev:revs.length>0,goRev:()=>{const el=document.getElementById('room-reviews');if(el)window.scrollTo({top:el.getBoundingClientRect().top+scrollY-40,behavior:'smooth'});},revTitle:es?'Lo que dicen los huéspedes':'What guests say',revW:mob?'84vw':'400px',
+      revPrev:()=>{const el=trk();el&&el.scrollBy({left:-st(),behavior:'smooth'});},revNext:()=>{const el=trk();el&&el.scrollBy({left:st(),behavior:'smooth'});}};}
+  theme(){const p=this.props||{};const L=h=>{const n=parseInt((h||'#000').slice(1),16);const c=[n>>16,(n>>8)&255,n&255].map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4);});return .2126*c[0]+.7152*c[1]+.0722*c[2];};
+    const bg=p.background??'#EEE6DA',ink=p.ink??'#2E2520',acc=p.accent??'#9A5236',amen=p.amenitiesColor??ink,hdr=p.headerColor??bg;
+    const dk=h=>L(h)<.35;const amenFg=dk(amen)?'#F6F0E6':ink;
+    return {bg,ink,acc,amen,amenFg,amenAcc:dk(amen)?(amen===acc?'#F2D2BC':'color-mix(in oklab,'+acc+' 50%,#fff)'):acc,hdr,hdrFg:dk(hdr)?'#F6F0E6':ink};}
+  renderVals(){ if(!window.NIDO) return {}; const b=window.NIDO.vals(this,{offset:80}),t=COPY[b.lang],sl=this.state.slide,rs=this.state.rs,past=this.state.past;
+    const hero=[{photo:b.nature.hero[0],name:'Tepoztlán'},{photo:b.kitchenMain,name:'Cocina'},{photo:b.livingMain,name:'Sala'},{photo:b.nature.hero[1],name:'Jardín'}];
+    const nv=b.navAll;
+    const mob=!!this.state.mob,ga=this.state.ga||0;
+    const slides=[];GAL.forEach(([id,ic,ph])=>ph.forEach((src,j)=>slides.push({id,src:(window.NIDO_RES?window.NIDO_RES(src):src),k:t.gal[id][0],d:j===0?t.gal[id][1]:'',n:(j+1)+' / '+ph.length})));
+    const trk=()=>document.getElementById('galTrack');
+    const stepW=()=>{const el=trk();const f=el&&el.querySelector('[data-gal]');return f?f.offsetWidth+6:0;};
+    const goSlide=i=>{const el=trk();if(el)el.scrollTo({left:i*stepW(),behavior:'smooth'});};
+    return {...b,t,v:this.theme(),...this.mobVals(b),roomCols:mob?'minmax(0,1fr)':'repeat(2,minmax(0,1fr))',roomRow:mob?'minmax(0,1fr)':'minmax(0,1.15fr) minmax(0,1fr)',
+      galSlides:slides,galW:mob?'88vw':'min(78vw,1100px)',galH:mob?'62vh':'min(72vh,720px)',
+      galPrev:()=>{const el=trk();el&&el.scrollBy({left:-stepW(),behavior:'smooth'});},galNext:()=>{const el=trk();el&&el.scrollBy({left:stepW(),behavior:'smooth'});},
+      galScroll:e=>{const w=stepW();if(!w)return;const i=Math.round(e.currentTarget.scrollLeft/w);const id=(slides[i]||{}).id;const a=GAL.findIndex(g=>g[0]===id);if(a>=0&&a!==ga)this.setState({ga:a});},
+      galTabs:GAL.map(([id,ic],i)=>{const first=slides.findIndex(s=>s.id===id);const on=i===ga;return {k:t.gal[id][0],icon:ic,bg:on?this.theme().ink:'transparent',fg:on?this.theme().bg:this.theme().ink,bd:on?this.theme().ink:'#C9B9A5',go:()=>{this.setState({ga:i});goSlide(first);}};}),
+      transit:b.c.transit.map((x,i)=>({...x,maskCss:TICON[i]})),navL:this.state.mob?[]:nv.slice(0,3),navR:this.state.mob?[]:nv.slice(3),hdrCols:this.state.mob?'auto 1fr':'1fr auto 1fr',esOp:b.isEs?1:.5,enOp:b.isEn?1:.5,
+      hdrBg:past?'color-mix(in oklab,'+this.theme().hdr+' 95%,transparent)':'transparent',hdrFg:past?this.theme().hdrFg:'#F6F0E6',
+      slides:hero.map((r,i)=>({src:r.photo,alt:'Nido Tepoztlán · '+r.name,op:i===sl?1:0,dot:i===sl?1:.45,w:i===sl?'40px':'16px',go:()=>this.setState({slide:i})})),
+      commons:b.c.commons.map((cm,i)=>({...cm,radius:RAD[i],ph:t.ph[cm.id],src:cm.id==='garden'?b.nature.garden[0]:cm.id==='kitchen'?b.kitchenMain:cm.id==='living'?b.livingMain:cm.id==='work'?b.workMain:''})),
+      rooms:b.rooms.map((r,i)=>({...r,dir:i%2?'row-reverse':'row',bleed:i%2?'0 calc(-1 * clamp(20px,4vw,48px)) 0 0':'0 0 0 calc(-1 * clamp(20px,4vw,48px))',radius:RR[i],bathIcon:r.shared?'ph-users-three':'ph-shower',wa:window.NIDO.waLink(b.lang,r.name,b.ci,b.co)})),
+      work:b.c.work.map((w,i)=>({...w,i:WI[i]})),
+      guide:b.c.guide.map((g,i)=>({...g,i:GI[i],svg:b.guideIcons[i],maskCss:'url("'+b.guideIcons[i]+'") center/contain no-repeat'})),
+      getHere:b.c.getHere.map((g,i)=>({...g,i:GH[i]})),
+      faqs:b.faqs.map(f=>({...f,icon:f.open?'ph-minus':'ph-plus'})),
+      ...this.revVals(b),curRest:b.curPhotos.slice(1),roomSlides:b.curPhotos.map((src,i)=>({src,thumb:b.curThumbs[i],op:i===rs?1:0,ring:i===rs?'#F6F0E6':'rgba(246,240,230,.3)',go:()=>this.setState({rs:i})}))}; }
+}
+</script>
+</body>
+</html>
