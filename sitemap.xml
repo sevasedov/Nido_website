@@ -2,4 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://nidotepoztlan.com/</loc><xhtml:link rel="alternate" hreflang="es" href="https://nidotepoztlan.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://nidotepoztlan.com/?lang=en"/><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://nidotepoztlan.com/?lang=en</loc><xhtml:link rel="alternate" hreflang="es" href="https://nidotepoztlan.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://nidotepoztlan.com/?lang=en"/><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nidotepoztlan.com/ave-suave</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nidotepoztlan.com/loro-loco</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nidotepoztlan.com/trebol-azul</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nidotepoztlan.com/momo-toh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
