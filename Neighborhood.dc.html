@@ -78,7 +78,7 @@
           <span style="display:{{ sh.handle }};width:40px;height:4px;border-radius:2px;background:#C9B9A5"></span>
           <span style="align-self:stretch;display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Newsreader',serif;font-size:22px">{{ listTitle }}</span><span style="font-size:13px;color:#7A6A5E">{{ listCount }}</span></span>
         </button>
-        <div id="hood-sheet" style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 20px 24px;position:relative">
+        <div id="hood-sheet" style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 20px 60svh;position:relative">
           <sc-for list="{{ list }}" as="p" hint-placeholder-count="5">
             <div id="{{ p.domId }}" onClick="{{ p.click }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:14px 10px;margin:0 -10px;border-top:1px solid #E2D6C6;background:{{ p.bg }};border-radius:10px;cursor:pointer">
               <div style="width:44px;height:44px;border-radius:50%;background:{{ p.color }};display:flex;align-items:center;justify-content:center"><i class="{{ p.iconB }}" style="font-size:20px;color:#F6F0E6"></i></div>
@@ -181,10 +181,11 @@ class Component extends DCLogic {
     H.sync(document.getElementById('hood-root'),{hl:this.state.hl,filter:v==='c'?null:this.state.filter,edit:this.state.edit,focus:this.state.focus,
       pick:id=>this.fromMap(id),hover:id=>{if(v!=='b')this.setState({hl:id});},moved:()=>this.setState(s=>({tick:s.tick+1}))});}
   fromMap(id){const v=this.ver();this.setState({hl:id,sheet:true});
-    setTimeout(()=>{const el=document.getElementById('pl-'+id);if(!el)return;
-      if(v==='b'){const sc=document.getElementById('hood-sheet');sc&&sc.scrollTo({top:el.offsetTop-8,behavior:'smooth'});}
+    const run=()=>{const el=document.getElementById('pl-'+id);if(!el)return;
+      if(v==='b'){const sc=document.getElementById('hood-sheet');if(sc)sc.scrollTop=el.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-8;}
       else if(v==='a'){const off=this.state.mob?window.innerHeight*0.42+72:90;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:'smooth'});}
-    },60);}
+    };
+    setTimeout(run,60);if(v==='b')setTimeout(run,380);}
   setLang(l){this.setState({lang:l});const u=new URL(location.href);if(l==='en')u.searchParams.set('lang','en');else u.searchParams.delete('lang');history.replaceState(null,'',u);}
   renderVals(){
     const H=window.NIDO_HOOD||{CATS:[],PLACES:[],cat:()=>({}),gmaps:()=>'#',exportPins:()=>''};
@@ -193,7 +194,7 @@ class Component extends DCLogic {
     const item=p=>{const c=H.cat(p.cat)||{},on=hl===p.id;return {id:p.id,domId:'pl-'+p.id,name:nm(p),d:p.d[L],tip:p.tip?p.tip[L]:'',hasTip:!!p.tip,
       hours:p.hours?p.hours[L]:'',hasHours:!!p.hours,color:c.color,icon:'ph-light '+(p.icon||c.icon),iconB:'ph-bold '+(p.icon||c.icon),photo:p.photo||'',hasPhoto:!!p.photo,noPhoto:!p.photo,catLabel:c[L],dir:H.gmaps(p),link:p.link||'',hasLink:!!p.link,
       bg:on?'color-mix(in oklab,'+c.color+' 9%,transparent)':'transparent',bar:on?c.color:'transparent',nameColor:on?c.color:'#2E2520',open:on,
-      enter:()=>{if(this.state.hl!==p.id)this.setState({hl:p.id});},leave:()=>{if(v!=='b'&&this.state.hl===p.id)this.setState({hl:null});},
+      enter:()=>{if(v!=='b'&&this.state.hl!==p.id)this.setState({hl:p.id});},leave:()=>{if(v!=='b'&&this.state.hl===p.id)this.setState({hl:null});},
       click:()=>this.setState({hl:p.id,focus:p.id})};};
     const list=H.PLACES.filter(p=>!f||p.cat===f).map(item);
     const chip=(id,label,dot)=>{const on=f===id;return {label,dot,bg:on?'#2E2520':'transparent',bgB:on?'#2E2520':'#F6F0E6',fg:on?'#F6F0E6':'#2E2520',bd:on?'#2E2520':'#C9B9A5',pick:()=>this.setState({filter:id,hl:null,focus:null})};};
