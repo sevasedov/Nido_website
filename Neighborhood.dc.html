@@ -146,7 +146,7 @@
   </sc-if>
 
   <sc-if value="{{ edit }}">
-    <div style="position:fixed;right:16px;top:80px;z-index:1300;width:min(340px,calc(100vw - 32px));background:#2E2520;color:#F6F0E6;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+    <div style="position:fixed;left:16px;top:80px;z-index:1300;width:min(400px,calc(100vw - 32px));background:#2E2520;color:#F6F0E6;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
       <div style="font-weight:600">{{ t.pinsTitle }}</div>
       <div style="opacity:.8">{{ t.pinsHelp }}</div>
       <textarea readonly="readonly" value="{{ pinsText }}" style="height:180px;font:12px/1.5 ui-monospace,monospace;background:#1F1916;color:#F6F0E6;border:0;padding:10px;resize:vertical"></textarea>
@@ -208,7 +208,7 @@ class Component extends DCLogic {
       homeHref:L==='en'?'/?lang=en':'/',setEs:()=>this.setLang('es'),setEn:()=>this.setLang('en'),esOp:L==='es'?'1':'.45',enOp:L==='en'?'1':'.45',
       aCols:mob?'1fr':'minmax(380px,520px) minmax(0,1fr)',aListOrder:mob?'2':'1',aMapOrder:mob?'1':'2',aMapTop:mob?'64px':'64px',aMapH:mob?'42svh':'calc(100vh - 64px)',
       bChipJust:mob?'flex-start':'center',sh,toggleSheet:()=>this.setState(s=>({sheet:!s.sheet})),
-      edit:this.state.edit,pinsText:(this.state.tick,H.exportPins()),copyLabel:this.state.copied?t.copied:t.copy,
+      edit:this.state.edit,pinsText:(this.state.tick,H.exportPins()),pinsHint:this.state.mob,copyLabel:this.state.copied?t.copied:t.copy,
       copyPins:()=>{navigator.clipboard&&navigator.clipboard.writeText(H.exportPins());this.setState({copied:true});setTimeout(()=>this.setState({copied:false}),1600);},
       resetPins:()=>{H.resetPins();location.reload();},
       switcher:sw,swDisp:this.state.pinsMode?'flex':'none'};

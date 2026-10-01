@@ -82,8 +82,8 @@ function mount(el){
  LF.marker(HOUSE,{icon:houseIcon(),zIndexOffset:1000,keyboard:false}).addTo(m);
  const mk={};PLACES.filter(p=>!ids.length||ids.includes(p.id)).forEach(p=>{
   const k=LF.marker(pos(p),{icon:pin(p,false),title:typeof p.name==='string'?p.name:p.name.es}).addTo(m);
-  k.on('click',()=>h.cb.pick&&h.cb.pick(p.id));
-  k.on('mouseover',()=>h.cb.hover&&h.cb.hover(p.id));k.on('mouseout',()=>h.cb.hover&&h.cb.hover(null));
+  k.on('click',()=>!h.edit&&h.cb.pick&&h.cb.pick(p.id));
+  k.on('mouseover',()=>!h.edit&&h.cb.hover&&h.cb.hover(p.id));k.on('mouseout',()=>!h.edit&&h.cb.hover&&h.cb.hover(null));
   k.on('dragend',()=>{const ll=k.getLatLng(),o=over();o[p.id]=[+ll.lat.toFixed(6),+ll.lng.toFixed(6)];localStorage.setItem(KEY,JSON.stringify(o));h.cb.moved&&h.cb.moved(p.id);});
   mk[p.id]={k,p};});
  const h={m,mk,cb:{},hl:null,filter:null,edit:false,fitKey:null};
@@ -94,10 +94,10 @@ function mount(el){
 function sync(root,o){if(!root||!window.L)return;
  root.querySelectorAll('[data-hood-map]').forEach(el=>{const h=mount(el);if(!h)return;
   h.cb=o;
-  if(h.hl!==o.hl){Object.values(h.mk).forEach(({k,p})=>{const on=p.id===o.hl;k.setIcon(pin(p,on));k.setZIndexOffset(on?900:0);});h.hl=o.hl;}
+  if(!o.edit&&h.hl!==o.hl){Object.values(h.mk).forEach(({k,p})=>{const on=p.id===o.hl;k.setIcon(pin(p,on));k.setZIndexOffset(on?900:0);});h.hl=o.hl;}
   const f=o.filter||null;
   if(h.filter!==f){Object.values(h.mk).forEach(({k,p})=>{const vis=!f||p.cat===f;if(vis&&!h.m.hasLayer(k))k.addTo(h.m);if(!vis&&h.m.hasLayer(k))h.m.removeLayer(k);});h.filter=f;}
-  if(h.edit!==!!o.edit){Object.values(h.mk).forEach(({k})=>{k.dragging&&(o.edit?k.dragging.enable():k.dragging.disable());});h.edit=!!o.edit;}
+  if(h.edit!==!!o.edit){Object.values(h.mk).forEach(({k,p})=>{k.options.draggable=!!o.edit;if(o.edit){k.setIcon(pin(p,false));h.hl=null;k.bindTooltip(typeof p.name==='string'?p.name:p.name.es,{permanent:true,direction:'top',offset:[0,-14]}).openTooltip();}else k.unbindTooltip();k.dragging&&(o.edit?k.dragging.enable():k.dragging.disable());});h.edit=!!o.edit;}
   const fk=f||(el.getAttribute('data-fit')||'all');
   if(h.fitKey!==fk){const near=PLACES.filter(p=>p.cat!=='trail'&&p.cat!=='market').map(p=>p.id);
    h.fit(f?PLACES.filter(p=>p.cat===f).map(p=>p.id):(fk==='near'?near:null));h.fitKey=fk;}
