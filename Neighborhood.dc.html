@@ -34,12 +34,12 @@
         <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(44px,5vw,68px);line-height:1;margin:14px 0 16px">{{ t.title }}</h1>
         <p style="margin:0;font-size:17px;line-height:1.55;color:#4A3D35;max-width:42ch;text-wrap:pretty">{{ t.sub }}</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px">
-          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6"><button onClick="{{ ch.pick }}" style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid {{ ch.bd }};background:{{ ch.bg }};color:{{ ch.fg }};font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
+          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.pick }}" style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid {{ ch.bd }};background:{{ ch.bg }};color:{{ ch.fg }};font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
         </div>
         <div style="display:flex;flex-direction:column">
           <sc-for list="{{ list }}" as="p" hint-placeholder-count="6">
             <article id="{{ p.domId }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" onClick="{{ p.click }}" style="display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;padding:20px 14px;margin:0 -14px;border-top:1px solid #D6C8B6;background:{{ p.bg }};box-shadow:inset 3px 0 0 {{ p.bar }};cursor:pointer;transition:background .15s">
-              <div style="width:76px;height:76px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center"><i class="{{ p.icon }}" style="font-size:28px;color:{{ p.color }}"></i></div>
+              <div style="width:76px;height:76px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;overflow:hidden"><sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></sc-if><sc-if value="{{ p.noPhoto }}"><i class="{{ p.icon }}" style="font-size:28px;color:{{ p.color }}"></i></sc-if></div>
               <div style="min-width:0">
                 <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:24px;line-height:1.15">{{ p.name }}</h3><span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:{{ p.color }}">{{ p.catLabel }}</span></div>
                 <p style="margin:6px 0 0;font-size:15px;line-height:1.5;color:#4A3D35">{{ p.d }}</p>
@@ -70,7 +70,7 @@
           <div style="display:flex;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.14em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:10px 10px 10px 14px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:10px 14px 10px 10px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
         </div>
         <div style="display:flex;gap:8px;overflow-x:auto;pointer-events:auto;padding-bottom:2px;justify-content:{{ bChipJust }}">
-          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="6"><button onClick="{{ ch.pick }}" style="flex:none;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:0;background:{{ ch.bgB }};color:{{ ch.fg }};box-shadow:0 2px 8px rgba(46,37,32,.12);font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
+          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.pick }}" style="flex:none;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:0;background:{{ ch.bgB }};color:{{ ch.fg }};box-shadow:0 2px 8px rgba(46,37,32,.12);font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
         </div>
       </div>
       <div style="position:absolute;z-index:1000;left:{{ sh.left }};right:{{ sh.right }};bottom:{{ sh.bottom }};top:{{ sh.top }};width:{{ sh.w }};height:{{ sh.h }};background:#F6F0E6;border-radius:{{ sh.r }};box-shadow:0 -4px 30px rgba(46,37,32,.18);display:flex;flex-direction:column;overflow:hidden;transition:height .3s ease">
@@ -88,7 +88,7 @@
                 <sc-if value="{{ p.hasHours }}"><div style="font-size:13px;color:#7A6A5E;margin-top:4px">{{ p.hours }}</div></sc-if>
                 <sc-if value="{{ p.open }}">
                   <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
-                    <div style="height:140px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;border-radius:8px;color:{{ p.color }};font-size:12px;letter-spacing:.14em;text-transform:uppercase">{{ t.photo }}</div>
+                    <sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:8px"></img></sc-if>
                     <sc-if value="{{ p.hasTip }}"><p style="margin:0;font-family:'Newsreader',serif;font-style:italic;font-size:17px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
                     <div style="display:flex;gap:8px;flex-wrap:wrap">
                       <a href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:#2E2520;color:#F6F0E6;font-size:14px"><i class="ph-light ph-navigation-arrow" style="font-size:16px"></i>{{ t.dir }}</a>
@@ -161,9 +161,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const T={
- es:{title:'El barrio',sub:'Nuestros lugares favoritos alrededor de la casa: dónde tomar café, hacer las compras, tomar el transporte y salir a caminar.',all:'Todo',dir:'Cómo llegar',photo:'Foto',back:'Volver a Nido',places:'lugares',
+ es:{title:'El barrio',sub:'Nuestros lugares favoritos alrededor de la casa: dónde tomar café, comer, hacer las compras y tomar el transporte.',all:'Todo',dir:'Cómo llegar',photo:'Foto',back:'Volver a Nido',places:'lugares',
   pinsTitle:'Ajustar pines',pinsHelp:'Arrastra cada pin a su lugar exacto en el mapa. Se guarda en este navegador. Luego copia la lista y mándamela.',copy:'Copiar lista',copied:'Copiado',reset:'Reiniciar'},
- en:{title:'The neighborhood',sub:'Our favorite places around the house: where to get coffee, do your shopping, catch the bus and go for a walk.',all:'All',dir:'Directions',photo:'Photo',back:'Back to Nido',places:'places',
+ en:{title:'The neighborhood',sub:'Our favorite places around the house: where to get coffee, eat, do your shopping and catch the bus.',all:'All',dir:'Directions',photo:'Photo',back:'Back to Nido',places:'places',
   pinsTitle:'Adjust pins',pinsHelp:'Drag each pin to its exact spot on the map. It is saved in this browser. Then copy the list and send it to me.',copy:'Copy list',copied:'Copied',reset:'Reset'}};
 class Component extends DCLogic {
   state={lang:'es',v:null,filter:null,hl:null,focus:null,edit:false,sheet:false,mob:false,tick:0,copied:false};
@@ -191,7 +191,7 @@ class Component extends DCLogic {
     const L=this.state.lang==='en'?'en':'es',t=T[L],v=this.ver(),mob=this.state.mob,f=this.state.filter,hl=this.state.hl;
     const nm=p=>typeof p.name==='string'?p.name:p.name[L];
     const item=p=>{const c=H.cat(p.cat)||{},on=hl===p.id;return {id:p.id,domId:'pl-'+p.id,name:nm(p),d:p.d[L],tip:p.tip?p.tip[L]:'',hasTip:!!p.tip,
-      hours:p.hours?p.hours[L]:'',hasHours:!!p.hours,color:c.color,icon:'ph-light '+c.icon,iconB:'ph-bold '+c.icon,catLabel:c[L],dir:H.gmaps(p),link:p.link||'',hasLink:!!p.link,
+      hours:p.hours?p.hours[L]:'',hasHours:!!p.hours,color:c.color,icon:'ph-light '+(p.icon||c.icon),iconB:'ph-bold '+(p.icon||c.icon),photo:p.photo||'',hasPhoto:!!p.photo,noPhoto:!p.photo,catLabel:c[L],dir:H.gmaps(p),link:p.link||'',hasLink:!!p.link,
       bg:on?'color-mix(in oklab,'+c.color+' 9%,transparent)':'transparent',bar:on?c.color:'transparent',nameColor:on?c.color:'#2E2520',open:on,
       enter:()=>{if(this.state.hl!==p.id)this.setState({hl:p.id});},leave:()=>{if(v!=='b'&&this.state.hl===p.id)this.setState({hl:null});},
       click:()=>this.setState({hl:p.id,focus:p.id})};};

@@ -11,54 +11,47 @@ const CATS=[
   introEs:'Los domingos hay tianguis en Huilotepec: fruta, verdura, comida y de todo un poco.',
   introEn:'On Sundays there is a street market in Huilotepec: fruit, vegetables, food and a bit of everything.'},
  {id:'bus',icon:'ph-bus',color:'#3F5B6E',es:'Transporte',en:'Transport',
-  introEs:'El transporte al centro pasa cada 5 minutos, muy cerca de la casa.',
-  introEn:'Buses to downtown pass every 5 minutes, very close to the house.'},
- {id:'trail',icon:'ph-mountains',color:'#4E6A4C',es:'Senderos',en:'Trails',
-  introEs:'Ixcatepec está al pie de los cerros. Estos senderos empiezan cerca de la casa.',
-  introEn:'Ixcatepec sits at the foot of the hills. These trails start close to the house.'}
+  introEs:'El transporte al centro pasa cada 5 minutos, y hay sitio de taxis muy cerca de la casa.',
+  introEn:'Buses to downtown pass every 5 minutes, and there is a taxi stand very close to the house.'}
 ];
-const AT='https://www.alltrails.com/';
 const PLACES=[
- {id:'jesse',cat:'cafe',name:'Jesse',lat:18.9768,lng:-99.0800,
+ {id:'jesse',photo:'assets/hood/jesse.jpg',cat:'cafe',name:'Jesse',lat:18.974978,lng:-99.078602,
+  hours:{es:'Cerrado los miércoles',en:'Closed on Wednesdays'},
   d:{es:'Café de especialidad y panadería. El mejor del pueblo.',en:'Specialty coffee and bakery. The best in town.'},
   tip:{es:'Nuestro favorito para el café y el pan de la mañana.',en:'Our favorite for morning coffee and bread.'}},
- {id:'rustique',cat:'cafe',name:'Rustique',lat:18.9752,lng:-99.0803,
+ {id:'rustique',photo:'assets/hood/rustique.jpg',cat:'cafe',name:'Rustique',lat:18.97861,lng:-99.080511,
   hours:{es:'Mié–Dom · 8:00–13:00',en:'Wed–Sun · 8am–1pm'},
   d:{es:'Café y desayunos.',en:'Coffee and breakfast.'},
   tip:{es:'Buen lugar para un desayuno sin prisa.',en:'A good spot for an unhurried breakfast.'}},
- {id:'juquilita',cat:'cafe',name:'Mi Juquilita',lat:18.9762,lng:-99.0784,
+ {id:'juquilita',icon:'ph-fork-knife',photo:'assets/hood/juquilita.jpg',cat:'cafe',name:'Mi Juquilita',lat:18.9751,lng:-99.078811,
   d:{es:'Restaurante de comida casera.',en:'Home-style cooking.'},
   tip:{es:'Para cuando no tienes ganas de cocinar.',en:'For days you don\u2019t feel like cooking.'}},
- {id:'cecina',cat:'cafe',name:'Cecina Don Armando',lat:18.9748,lng:-99.0787,
+ {id:'cecina',photo:'assets/hood/cecina.jpg',cat:'cafe',name:'Cecina Don Armando',lat:18.975475,lng:-99.078977,
   hours:{es:'Solo sábado y domingo',en:'Saturday & Sunday only'},
   d:{es:'Cecina, solo los fines de semana.',en:'Cecina, weekends only.'},
   tip:{es:'Un clásico de fin de semana en el barrio.',en:'A neighborhood weekend classic.'}},
- {id:'casaazul',cat:'shop',name:'Casa Azul',lat:18.9765,lng:-99.0794,
+ {id:'tepozcafe',photo:'assets/hood/tepozcafe.jpg',cat:'cafe',name:'Tepoz Café',lat:18.9764,lng:-99.0803,
+  d:{es:'Cafetería y panadería orgánica.',en:'Organic café and bakery.'}},
+ {id:'foodcourt',icon:'ph-fork-knife',cat:'cafe',name:{es:'Food court',en:'Food court'},lat:18.9754,lng:-99.0784,
+  d:{es:'Varios puestos de comida en un solo lugar.',en:'Several food stalls in one place.'}},
+ {id:'casaazul',photo:'assets/hood/casaazul.jpg',cat:'shop',name:'Casa Azul',lat:18.975348,lng:-99.079235,
+  hours:{es:'Todos los días · 11:00–20:00',en:'Every day · 11am–8pm'},
   d:{es:'Quesos y salchichonería.',en:'Cheese and deli shop.'}},
- {id:'catalana',cat:'shop',name:'Catalana',lat:18.9771,lng:-99.0789,
+ {id:'catalana',photo:'assets/hood/catalana.jpg',cat:'shop',name:'Catalana',lat:18.975013,lng:-99.07821,
+  hours:{es:'Todos los días · 11:00–20:00',en:'Every day · 11am–8pm'},
   d:{es:'Tienda de vinos.',en:'Wine shop.'}},
- {id:'frutas',cat:'shop',name:'Frutas y verduras',lat:18.9755,lng:-99.0797,
+ {id:'frutas',cat:'shop',name:'Frutas y verduras',lat:18.975242,lng:-99.079052,
   d:{es:'Fruta y verdura fresca.',en:'Fresh fruit and vegetables.'}},
- {id:'farmacia',cat:'shop',name:'Farmacias Similares',lat:18.9773,lng:-99.0807,
+ {id:'farmacia',photo:'assets/hood/farmacia.jpg',cat:'shop',name:'Farmacias Similares',lat:18.974623,lng:-99.078081,
   d:{es:'Farmacia.',en:'Pharmacy.'}},
- {id:'tianguis',cat:'market',name:'Tianguis de Huilotepec',lat:18.9832,lng:-99.0868,
+ {id:'tianguis',cat:'market',name:'Tianguis de Huilotepec',lat:18.973649,lng:-99.07681,
   hours:{es:'Domingos',en:'Sundays'},
   d:{es:'Mercado de los domingos.',en:'Sunday market.'}},
- {id:'bus',cat:'bus',name:{es:'Parada al centro',en:'Bus to downtown'},lat:18.9761,lng:-99.0806,
+ {id:'taxi',icon:'ph-taxi',cat:'bus',name:{es:'Sitio de taxis',en:'Taxi stand'},lat:18.9752,lng:-99.0796,
+  d:{es:'Taxis al centro y alrededores.',en:'Taxis to downtown and around.'}},
+ {id:'bus',cat:'bus',name:{es:'Parada al centro',en:'Bus to downtown'},lat:18.975632,lng:-99.079318,
   hours:{es:'Cada 5 min',en:'Every 5 min'},
-  d:{es:'Ruta al centro de Tepoztlán.',en:'Route to downtown Tepoztlán.'}},
- {id:'crucero',cat:'trail',name:'Cerro Crucero Ixcatepec',lat:18.9712,lng:-99.0762,
-  hours:{es:'2.6 km · circuito · ~1 h',en:'2.6 km · loop · ~1 h'},
-  d:{es:'Subida corta a un cerro con vista a todo el valle de Tepoztlán.',en:'A short climb to a hilltop with views over the whole Tepoztlán valley.'},
-  link:AT+'trail/mexico/morelos/cerro-youalinchan-cerro-crucero-ixcatepec'},
- {id:'chalchi',cat:'trail',name:'Chalchitepetl',lat:18.9737,lng:-99.0852,
-  hours:{es:'Corto y empinado',en:'Short and steep'},
-  d:{es:'Sube desde una calle del pueblo a la cima del Chalchi.',en:'Climbs from a town street to the top of the Chalchi.'},
-  link:AT+'mexico/morelos/tepoztlan'},
- {id:'tepozteco',cat:'trail',name:'El Tepozteco',lat:18.9925,lng:-99.0980,
-  hours:{es:'3 km ida y vuelta · ~1 h 40',en:'3 km out & back · ~1 h 40'},
-  d:{es:'El sendero clásico a la pirámide en la cima del cerro.',en:'The classic trail to the pyramid on top of the hill.'},
-  link:AT+'trail/mexico/morelos/tepozteco'}
+  d:{es:'Ruta al centro de Tepoztlán.',en:'Route to downtown Tepoztlán.'}}
 ];
 const KEY='nido-hood-pins-v1';
 const over=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}};
@@ -66,9 +59,9 @@ const pos=p=>over()[p.id]||[p.lat,p.lng];
 const cat=id=>CATS.find(c=>c.id===id);
 function pin(p,on){const c=cat(p.cat),s=on?44:32;
  return L.divIcon({className:'',iconSize:[s,s],iconAnchor:[s/2,s/2],
-  html:'<div style="width:'+s+'px;height:'+s+'px;border-radius:50%;background:'+c.color+';border:2.5px solid #F6F0E6;box-shadow:0 2px 8px rgba(46,37,32,.35);display:flex;align-items:center;justify-content:center;color:#F6F0E6;font-size:'+(on?22:16)+'px;transition:all .15s"><i class="ph-bold '+c.icon+'"></i></div>'});}
-function houseIcon(){return L.divIcon({className:'',iconSize:[52,52],iconAnchor:[26,26],
- html:'<div style="width:52px;height:52px;border-radius:50%;background:#7E3A4C;border:3px solid #F6F0E6;box-shadow:0 3px 12px rgba(46,37,32,.4);display:flex;align-items:center;justify-content:center;color:#F6F0E6;font:500 11px/1 Figtree,sans-serif;letter-spacing:.14em">NiDO</div>'});}
+  html:'<div style="width:'+s+'px;height:'+s+'px;border-radius:50%;background:'+c.color+';border:2.5px solid #F6F0E6;box-shadow:0 2px 8px rgba(46,37,32,.35);display:flex;align-items:center;justify-content:center;color:#F6F0E6;font-size:'+(on?22:16)+'px;transition:all .15s"><i class="ph-bold '+(p.icon||c.icon)+'"></i></div>'});}
+function houseIcon(){return L.divIcon({className:'',iconSize:[40,40],iconAnchor:[20,20],
+ html:'<div style="width:40px;height:40px;border-radius:50%;background:#7E3A4C;border:3px solid #F6F0E6;box-shadow:0 3px 12px rgba(46,37,32,.4);display:flex;align-items:center;justify-content:center;color:#F6F0E6;font:500 9px/1 Figtree,sans-serif;letter-spacing:.14em">NiDO</div>'});}
 function mount(el){
  if(el._hood)return el._hood;const LF=window.L;if(!LF||!el.offsetWidth)return null;
  const ids=(el.getAttribute('data-ids')||'').split(',').filter(Boolean);
@@ -79,7 +72,7 @@ function mount(el){
   sat:()=>[LF.tileLayer(ES+'World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:ea}),LF.tileLayer(ES+'Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}),LF.tileLayer(ES+'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19})]};
  const tq=new URLSearchParams(location.search).get('tiles');const base={'Mapa':LF.layerGroup(TL[tq==='osm'?'osm':'street']()),'Satélite':LF.layerGroup(TL.sat())};
  (tq==='sat'?base['Satélite']:base['Mapa']).addTo(m);LF.control.layers(base,null,{position:'bottomright',collapsed:false}).addTo(m);
- LF.marker(HOUSE,{icon:houseIcon(),zIndexOffset:1000,keyboard:false}).addTo(m);
+ LF.marker(HOUSE,{icon:houseIcon(),zIndexOffset:-500,keyboard:false,interactive:false}).addTo(m);
  const mk={};PLACES.filter(p=>!ids.length||ids.includes(p.id)).forEach(p=>{
   const k=LF.marker(pos(p),{icon:pin(p,false),title:typeof p.name==='string'?p.name:p.name.es}).addTo(m);
   k.on('click',()=>!h.edit&&h.cb.pick&&h.cb.pick(p.id));
@@ -87,9 +80,9 @@ function mount(el){
   k.on('dragend',()=>{const ll=k.getLatLng(),o=over();o[p.id]=[+ll.lat.toFixed(6),+ll.lng.toFixed(6)];localStorage.setItem(KEY,JSON.stringify(o));h.cb.moved&&h.cb.moved(p.id);});
   mk[p.id]={k,p};});
  const h={m,mk,cb:{},hl:null,filter:null,edit:false,fitKey:null};
- h.fit=(fids)=>{const pts=[HOUSE];Object.values(mk).forEach(({k,p})=>{if(!fids||fids.includes(p.id))pts.push(k.getLatLng());});
+ h.fit=(fids)=>{h.lastFit=fids;const pts=[HOUSE];Object.values(mk).forEach(({k,p})=>{if(!fids||fids.includes(p.id))pts.push(k.getLatLng());});
   m.fitBounds(LF.latLngBounds(pts),{padding:[+(el.getAttribute('data-pad')||48),+(el.getAttribute('data-pad')||48)],maxZoom:18,animate:h.fitKey!==null});};
- el._hood=h;setTimeout(()=>m.invalidateSize(),50);return h;
+ el._hood=h;setTimeout(()=>{m.invalidateSize();if(h.fitKey!==null)h.fit(h.lastFit);},120);return h;
 }
 function sync(root,o){if(!root||!window.L)return;
  root.querySelectorAll('[data-hood-map]').forEach(el=>{const h=mount(el);if(!h)return;
@@ -99,7 +92,7 @@ function sync(root,o){if(!root||!window.L)return;
   if(h.filter!==f){Object.values(h.mk).forEach(({k,p})=>{const vis=!f||p.cat===f;if(vis&&!h.m.hasLayer(k))k.addTo(h.m);if(!vis&&h.m.hasLayer(k))h.m.removeLayer(k);});h.filter=f;}
   if(h.edit!==!!o.edit){Object.values(h.mk).forEach(({k,p})=>{k.options.draggable=!!o.edit;if(o.edit){k.setIcon(pin(p,false));h.hl=null;k.bindTooltip(typeof p.name==='string'?p.name:p.name.es,{permanent:true,direction:'top',offset:[0,-14]}).openTooltip();}else k.unbindTooltip();k.dragging&&(o.edit?k.dragging.enable():k.dragging.disable());});h.edit=!!o.edit;}
   const fk=f||(el.getAttribute('data-fit')||'all');
-  if(h.fitKey!==fk){const near=PLACES.filter(p=>p.cat!=='trail'&&p.cat!=='market').map(p=>p.id);
+  if(h.fitKey!==fk){const near=PLACES.filter(p=>{const q=pos(p);return Math.hypot((q[0]-HOUSE[0])*111000,(q[1]-HOUSE[1])*105000)<120;}).map(p=>p.id);
    h.fit(f?PLACES.filter(p=>p.cat===f).map(p=>p.id):(fk==='near'?near:null));h.fitKey=fk;}
   if(o.focus&&o.focus!==h.focused){const x=h.mk[o.focus];if(x)h.m.panTo(x.k.getLatLng(),{animate:true});h.focused=o.focus;}
  });}
