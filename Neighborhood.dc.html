@@ -159,7 +159,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;housePin&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;disc&quot;,&quot;star&quot;,&quot;sign&quot;,&quot;drop&quot;],&quot;default&quot;:&quot;star&quot;,&quot;tsType&quot;:&quot;'disc'|'star'|'sign'|'drop'&quot;,&quot;section&quot;:&quot;Map&quot;}}">
 const T={
  es:{title:'El barrio',sub:'Nuestros lugares favoritos alrededor de la casa: dónde tomar café, comer, hacer las compras y tomar el transporte.',all:'Todo',dir:'Cómo llegar',photo:'Foto',back:'Volver a Nido',places:'lugares',
   pinsTitle:'Ajustar pines',pinsHelp:'Arrastra cada pin a su lugar exacto en el mapa. Se guarda en este navegador. Luego copia la lista y mándamela.',copy:'Copiar lista',copied:'Copiado',reset:'Reiniciar'},
@@ -178,7 +178,7 @@ class Component extends DCLogic {
   componentDidUpdate(){setTimeout(()=>this.sync(),0);}
   ver(){return this.state.v||(this.state.mob?'b':'a');}
   sync(){const H=window.NIDO_HOOD;if(!H)return;const v=this.ver();
-    H.sync(document.getElementById('hood-root'),{hl:this.state.hl,filter:v==='c'?null:this.state.filter,edit:this.state.edit,focus:this.state.focus,
+    H.sync(document.getElementById('hood-root'),{house:this.props.housePin??'star',hl:this.state.hl,filter:v==='c'?null:this.state.filter,edit:this.state.edit,focus:this.state.focus,
       pick:id=>this.fromMap(id),hover:id=>{if(v!=='b')this.setState({hl:id});},moved:()=>this.setState(s=>({tick:s.tick+1}))});}
   fromMap(id){const v=this.ver();this.setState({hl:id,sheet:true});
     const run=()=>{const el=document.getElementById('pl-'+id);if(!el)return;
