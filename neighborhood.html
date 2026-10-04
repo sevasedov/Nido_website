@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>El barrio · Nido Tepoztlán</title>
+<meta name="description" content="Cafés, tiendas, mercado, transporte y senderos a unos pasos de Nido, en Ixcatepec, Tepoztlán."></meta>
+<link rel="canonical" href="https://nidotepoztlan.com/neighborhood"></link>
+</meta>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet"></link>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"></link>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"></link>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></link>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="nido-hood.js"></script>
+<link rel="icon" type="image/png" href="assets/favicon-v3.png"></link>
+<style>body{margin:0;background:#EEE6DA;color:#2E2520;font-family:'Figtree',sans-serif}a{color:#2E2520;text-decoration:none}a:hover{color:#9A5236}button{font:inherit}.leaflet-container{font-family:'Figtree',sans-serif;background:#E7DFD2}.leaflet-control-layers{border:0!important;border-radius:999px!important;box-shadow:0 2px 10px rgba(46,37,32,.18)!important;padding:4px 12px!important}.leaflet-control-layers-base{display:flex;gap:14px}.leaflet-control-layers-base label span{display:flex;align-items:center;gap:6px;font-size:13px}.leaflet-control-layers-selector{margin:0!important;accent-color:#2E2520}</style>
+</helmet>
+<div id="hood-root" style="min-height:100vh">
+
+  <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
+    <header style="position:sticky;top:0;z-index:1100;height:64px;box-sizing:border-box;padding:0 clamp(16px,3vw,32px);display:flex;align-items:center;justify-content:space-between;gap:16px;background:#EEE6DA;border-bottom:1px solid #D6C8B6">
+      <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
+      <div style="display:flex;gap:8px;font-size:12px;letter-spacing:.18em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
+    </header>
+    <div style="display:grid;grid-template-columns:{{ aCols }};align-items:start">
+      <div style="padding:clamp(28px,4vw,56px) clamp(20px,3vw,44px) 80px;order:{{ aListOrder }}">
+        <div style="font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#9A5236">Ixcatepec · Tepoztlán</div>
+        <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(44px,5vw,68px);line-height:1;margin:14px 0 16px">{{ t.title }}</h1>
+        <p style="margin:0;font-size:17px;line-height:1.55;color:#4A3D35;max-width:42ch;text-wrap:pretty">{{ t.sub }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px">
+          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.pick }}" style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid {{ ch.bd }};background:{{ ch.bg }};color:{{ ch.fg }};font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ list }}" as="p" hint-placeholder-count="6">
+            <article id="{{ p.domId }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" onClick="{{ p.click }}" style="display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;padding:20px 14px;margin:0 -14px;border-top:1px solid #D6C8B6;background:{{ p.bg }};box-shadow:inset 3px 0 0 {{ p.bar }};cursor:pointer;transition:background .15s">
+              <div style="width:76px;height:76px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;overflow:hidden"><sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></sc-if><sc-if value="{{ p.noPhoto }}"><i class="{{ p.icon }}" style="font-size:28px;color:{{ p.color }}"></i></sc-if></div>
+              <div style="min-width:0">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:24px;line-height:1.15">{{ p.name }}</h3><span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:{{ p.color }}">{{ p.catLabel }}</span></div>
+                <p style="margin:6px 0 0;font-size:15px;line-height:1.5;color:#4A3D35">{{ p.d }}</p>
+                <sc-if value="{{ p.hasHours }}"><div style="margin-top:8px;font-size:13px;color:#7A6A5E;display:flex;align-items:center;gap:6px"><i class="ph-light ph-clock" style="font-size:15px"></i>{{ p.hours }}</div></sc-if>
+                <sc-if value="{{ p.hasTip }}"><p style="margin:10px 0 0;font-family:'Newsreader',serif;font-style:italic;font-size:17px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
+                <div style="display:flex;gap:18px;margin-top:12px;font-size:13px;flex-wrap:wrap">
+                  <a href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#9A5236;border-bottom:1px solid currentColor;padding-bottom:1px">{{ t.dir }}</a>
+                  <sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#4E6A4C;border-bottom:1px solid currentColor;padding-bottom:1px">AllTrails</a></sc-if>
+                </div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:sticky;top:{{ aMapTop }};height:{{ aMapH }};z-index:5;order:{{ aMapOrder }};border-left:1px solid #D6C8B6">
+        <div data-hood-map="1" data-fit="near" data-wheel="1" style="position:absolute;inset:0"></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isB }}">
+    <div style="position:fixed;inset:0;overflow:hidden;overscroll-behavior:none">
+      <div data-hood-map="1" data-fit="near" data-wheel="1" data-nozoom="1" data-pad="80" style="position:absolute;inset:0"></div>
+      <div style="position:absolute;top:0;left:0;right:0;z-index:1000;padding:14px;display:flex;flex-direction:column;gap:10px;pointer-events:none;background:linear-gradient(180deg,rgba(238,230,218,.92),rgba(238,230,218,0))">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:auto">
+          <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.16em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:16px"></i>Nido</a>
+          <div style="font-family:'Newsreader',serif;font-size:22px;display:{{ bTitleDisp }}">{{ t.title }}</div>
+          <div style="display:flex;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.14em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:10px 10px 10px 14px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:10px 14px 10px 10px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
+        </div>
+        <div style="display:flex;gap:8px;overflow-x:auto;pointer-events:auto;padding-bottom:2px;justify-content:{{ bChipJust }}">
+          <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.pick }}" style="flex:none;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:0;background:{{ ch.bgB }};color:{{ ch.fg }};box-shadow:0 2px 8px rgba(46,37,32,.12);font-size:14px;cursor:pointer"><span style="width:8px;height:8px;border-radius:50%;background:{{ ch.dot }}"></span>{{ ch.label }}</button></sc-for>
+        </div>
+      </div>
+      <div style="position:absolute;z-index:1000;left:{{ sh.left }};right:{{ sh.right }};bottom:{{ sh.bottom }};top:{{ sh.top }};width:{{ sh.w }};height:{{ sh.h }};background:#F6F0E6;border-radius:{{ sh.r }};box-shadow:0 -4px 30px rgba(46,37,32,.18);display:flex;flex-direction:column;overflow:hidden;transition:height .3s ease">
+        <button onClick="{{ toggleSheet }}" onTouchStart="{{ sheetTouchStart }}" onTouchEnd="{{ sheetTouchEnd }}" style="flex:none;touch-action:none;background:none;border:0;padding:14px 20px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;color:#2E2520">
+          <span style="display:{{ sh.handle }};width:40px;height:4px;border-radius:2px;background:#C9B9A5"></span>
+          <span style="align-self:stretch;display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Newsreader',serif;font-size:22px">{{ listTitle }}</span><span style="font-size:13px;color:#7A6A5E">{{ listCount }}</span></span>
+        </button>
+        <div id="hood-sheet" style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 20px 60svh;position:relative">
+          <sc-for list="{{ list }}" as="p" hint-placeholder-count="5">
+            <div id="{{ p.domId }}" onClick="{{ p.click }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:14px 10px;margin:0 -10px;border-top:1px solid #E2D6C6;background:{{ p.bg }};border-radius:10px;cursor:pointer">
+              <div style="width:44px;height:44px;border-radius:50%;background:{{ p.color }};display:flex;align-items:center;justify-content:center"><i class="{{ p.iconB }}" style="font-size:20px;color:#F6F0E6"></i></div>
+              <div style="min-width:0">
+                <div style="font-size:16px;font-weight:500">{{ p.name }}</div>
+                <div style="font-size:14px;color:#5E5048;margin-top:2px">{{ p.d }}</div>
+                <sc-if value="{{ p.hasHours }}"><div style="font-size:13px;color:#7A6A5E;margin-top:4px">{{ p.hours }}</div></sc-if>
+                <sc-if value="{{ p.open }}">
+                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
+                    <sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:8px"></img></sc-if>
+                    <sc-if value="{{ p.hasTip }}"><p style="margin:0;font-family:'Newsreader',serif;font-style:italic;font-size:17px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                      <a href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:#2E2520;color:#F6F0E6;font-size:14px"><i class="ph-light ph-navigation-arrow" style="font-size:16px"></i>{{ t.dir }}</a>
+                      <sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;padding:10px 16px;border-radius:999px;border:1px solid #2E2520;font-size:14px">AllTrails</a></sc-if>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isC }}">
+    <header style="padding:20px clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
+      <div style="display:flex;gap:8px;font-size:12px;letter-spacing:.18em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
+    </header>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(48px,8vw,120px) clamp(20px,4vw,56px) clamp(40px,6vw,80px)">
+      <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#9A5236">Ixcatepec · Tepoztlán · Morelos</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(56px,9vw,136px);line-height:.95;margin:20px 0 28px;letter-spacing:-.01em">{{ t.title }}</h1>
+      <p style="margin:0;font-size:20px;line-height:1.55;color:#4A3D35;max-width:46ch;text-wrap:pretty">{{ t.sub }}</p>
+      <nav style="display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:13px;letter-spacing:.16em;text-transform:uppercase">
+        <sc-for list="{{ sections }}" as="s" hint-placeholder-count="5"><a href="{{ s.anchor }}" style="display:inline-flex;align-items:center;gap:8px"><span style="font-family:'Newsreader',serif;font-style:italic;letter-spacing:0;text-transform:none;color:{{ s.color }}">{{ s.num }}</span>{{ s.label }}</a></sc-for>
+      </nav>
+    </section>
+    <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
+      <section id="{{ s.id }}" style="border-top:1px solid #D6C8B6;max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,4vw,56px)">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+          <div>
+            <div style="font-family:'Newsreader',serif;font-style:italic;font-size:22px;color:{{ s.color }}">{{ s.num }}</div>
+            <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,5vw,72px);line-height:1;margin:8px 0 20px">{{ s.label }}</h2>
+            <p style="margin:0 0 36px;font-size:18px;line-height:1.6;color:#4A3D35;max-width:40ch;text-wrap:pretty">{{ s.intro }}</p>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ s.places }}" as="p" hint-placeholder-count="3">
+                <div id="{{ p.domId }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" style="padding:20px 0;border-top:1px solid #D6C8B6;display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:26px;color:{{ p.nameColor }};transition:color .15s">{{ p.name }}</h3><sc-if value="{{ p.hasHours }}"><span style="font-size:13px;color:#7A6A5E">{{ p.hours }}</span></sc-if></div>
+                  <p style="margin:0;font-size:16px;line-height:1.5;color:#4A3D35">{{ p.d }}</p>
+                  <sc-if value="{{ p.hasTip }}"><p style="margin:4px 0 0;font-family:'Newsreader',serif;font-style:italic;font-size:18px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
+                  <div style="display:flex;gap:18px;margin-top:6px;font-size:13px"><a href="{{ p.dir }}" target="_blank" rel="noopener" style="color:#9A5236;border-bottom:1px solid currentColor">{{ t.dir }}</a><sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="color:#4E6A4C;border-bottom:1px solid currentColor">AllTrails</a></sc-if></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:sticky;top:24px;display:flex;flex-direction:column;gap:12px">
+            <div style="aspect-ratio:4/3;background:color-mix(in oklab,{{ s.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;color:{{ s.color }};font-size:12px;letter-spacing:.16em;text-transform:uppercase">{{ t.photo }}</div>
+            <div data-hood-map="1" data-ids="{{ s.ids }}" data-pad="56" style="height:340px;border:1px solid #D6C8B6"></div>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+    <footer style="text-align:center;padding:64px 20px 96px"><a href="{{ homeHref }}" style="font-family:'Newsreader',serif;font-size:24px;border-bottom:1px solid #C9B9A5;padding-bottom:4px">{{ t.back }}</a></footer>
+  </sc-if>
+
+  <sc-if value="{{ edit }}">
+    <div style="position:fixed;left:16px;top:80px;z-index:1300;width:min(400px,calc(100vw - 32px));background:#2E2520;color:#F6F0E6;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+      <div style="font-weight:600">{{ t.pinsTitle }}</div>
+      <div style="opacity:.8">{{ t.pinsHelp }}</div>
+      <textarea readonly="readonly" value="{{ pinsText }}" style="height:180px;font:12px/1.5 ui-monospace,monospace;background:#1F1916;color:#F6F0E6;border:0;padding:10px;resize:vertical"></textarea>
+      <div style="display:flex;gap:8px"><button onClick="{{ copyPins }}" style="flex:1;padding:10px;border:0;background:#F6F0E6;color:#2E2520;cursor:pointer">{{ copyLabel }}</button><button onClick="{{ resetPins }}" style="padding:10px 14px;border:1px solid rgba(246,240,230,.4);background:none;color:#F6F0E6;cursor:pointer">{{ t.reset }}</button></div>
+    </div>
+  </sc-if>
+
+  <div style="position:fixed;left:16px;bottom:16px;z-index:1300;display:{{ swDisp }};gap:4px;padding:4px;border-radius:999px;background:#2E2520;box-shadow:0 6px 24px rgba(0,0,0,.25);font-size:13px">
+    <sc-for list="{{ switcher }}" as="w" hint-placeholder-count="4"><button onClick="{{ w.pick }}" style="border:0;border-radius:999px;padding:8px 14px;cursor:pointer;background:{{ w.bg }};color:{{ w.fg }}">{{ w.label }}</button></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;housePin&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;disc&quot;,&quot;star&quot;,&quot;sign&quot;,&quot;drop&quot;],&quot;default&quot;:&quot;star&quot;,&quot;tsType&quot;:&quot;'disc'|'star'|'sign'|'drop'&quot;,&quot;section&quot;:&quot;Map&quot;}}">
+const T={
+ es:{title:'El barrio',sub:'Nuestros lugares favoritos alrededor de la casa: dónde tomar café, comer, hacer las compras y tomar el transporte.',all:'Todo',dir:'Cómo llegar',photo:'Foto',back:'Volver a Nido',places:'lugares',
+  pinsTitle:'Ajustar pines',pinsHelp:'Arrastra cada pin a su lugar exacto en el mapa. Se guarda en este navegador. Luego copia la lista y mándamela.',copy:'Copiar lista',copied:'Copiado',reset:'Reiniciar'},
+ en:{title:'The neighborhood',sub:'Our favorite places around the house: where to get coffee, eat, do your shopping and catch the bus.',all:'All',dir:'Directions',photo:'Photo',back:'Back to Nido',places:'places',
+  pinsTitle:'Adjust pins',pinsHelp:'Drag each pin to its exact spot on the map. It is saved in this browser. Then copy the list and send it to me.',copy:'Copy list',copied:'Copied',reset:'Reset'}};
+class Component extends DCLogic {
+  state={lang:'es',v:null,filter:null,hl:null,focus:null,edit:false,sheet:false,mob:false,tick:0,copied:false};
+  componentDidMount(){
+    const q=new URLSearchParams(location.search);const s={};
+    if(q.get('lang')==='en')s.lang='en';if(['a','b','c'].includes(q.get('v')))s.v=q.get('v');if(q.has('pins')){s.edit=true;s.pinsMode=true;}
+    s.mob=window.innerWidth<820;this.setState(s);
+    this._rs=()=>{const m=window.innerWidth<820;if(m!==this.state.mob)this.setState({mob:m});};window.addEventListener('resize',this._rs);
+    const go=()=>{if(window.L&&window.NIDO_HOOD)this.sync();else setTimeout(go,120);};go();
+  }
+  componentWillUnmount(){window.removeEventListener('resize',this._rs);}
+  componentDidUpdate(){setTimeout(()=>this.sync(),0);}
+  ver(){return this.state.v||(this.state.mob?'b':'a');}
+  sync(){const H=window.NIDO_HOOD;if(!H)return;const v=this.ver();
+    H.sync(document.getElementById('hood-root'),{house:this.props.housePin??'star',hl:this.state.hl,filter:v==='c'?null:this.state.filter,edit:this.state.edit,focus:this.state.focus,
+      pick:id=>this.fromMap(id),hover:id=>{if(v!=='b')this.setState({hl:id});},moved:()=>this.setState(s=>({tick:s.tick+1}))});}
+  fromMap(id){const v=this.ver();this.setState({hl:id,sheet:true});
+    const run=()=>{const el=document.getElementById('pl-'+id);if(!el)return;
+      if(v==='b'){const sc=document.getElementById('hood-sheet');if(sc)sc.scrollTop=el.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-8;}
+      else if(v==='a'){const off=this.state.mob?window.innerHeight*0.42+72:90;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:'smooth'});}
+    };
+    setTimeout(run,60);if(v==='b')setTimeout(run,380);}
+  setLang(l){this.setState({lang:l});const u=new URL(location.href);if(l==='en')u.searchParams.set('lang','en');else u.searchParams.delete('lang');history.replaceState(null,'',u);}
+  renderVals(){
+    const H=window.NIDO_HOOD||{CATS:[],PLACES:[],cat:()=>({}),gmaps:()=>'#',exportPins:()=>''};
+    const L=this.state.lang==='en'?'en':'es',t=T[L],v=this.ver(),mob=this.state.mob,f=this.state.filter,hl=this.state.hl;
+    const nm=p=>typeof p.name==='string'?p.name:p.name[L];
+    const item=p=>{const c=H.cat(p.cat)||{},on=hl===p.id;return {id:p.id,domId:'pl-'+p.id,name:nm(p),d:p.d[L],tip:p.tip?p.tip[L]:'',hasTip:!!p.tip,
+      hours:p.hours?p.hours[L]:'',hasHours:!!p.hours,color:c.color,icon:'ph-light '+(p.icon||c.icon),iconB:'ph-bold '+(p.icon||c.icon),photo:p.photo||'',hasPhoto:!!p.photo,noPhoto:!p.photo,catLabel:c[L],dir:H.gmaps(p),link:p.link||'',hasLink:!!p.link,
+      bg:on?'color-mix(in oklab,'+c.color+' 9%,transparent)':'transparent',bar:on?c.color:'transparent',nameColor:on?c.color:'#2E2520',open:on,
+      enter:()=>{if(v!=='b'&&this.state.hl!==p.id)this.setState({hl:p.id});},leave:()=>{if(v!=='b'&&this.state.hl===p.id)this.setState({hl:null});},
+      click:()=>this.setState({hl:p.id,focus:p.id})};};
+    const list=H.PLACES.filter(p=>!f||p.cat===f).map(item);
+    const chip=(id,label,dot)=>{const on=f===id;return {label,dot,bg:on?'#2E2520':'transparent',bgB:on?'#2E2520':'#F6F0E6',fg:on?'#F6F0E6':'#2E2520',bd:on?'#2E2520':'#C9B9A5',pick:()=>this.setState({filter:id,hl:null,focus:null})};};
+    const chips=[chip(null,t.all,'#7E3A4C'),...H.CATS.map(c=>chip(c.id,c[L],c.color))];
+    const sections=H.CATS.map((c,i)=>{const ps=H.PLACES.filter(p=>p.cat===c.id);return {id:'s-'+c.id,anchor:'#s-'+c.id,num:'0'+(i+1),label:c[L],color:c.color,intro:L==='en'?c.introEn:c.introEs,places:ps.map(item),ids:ps.map(p=>p.id).join(',')};});
+    const cur=f?H.cat(f)[L]:t.title;
+    const sheetOpen=this.state.sheet;
+    const sh=mob?{left:'0',right:'0',bottom:'0',top:'auto',w:'auto',h:sheetOpen?'calc(100% - 120px)':'36%',r:'18px 18px 0 0',handle:'block'}:{left:'16px',right:'auto',bottom:'16px',top:'124px',w:'400px',h:'auto',r:'14px',handle:'none'};
+    const sw=[['a','A · Mapa + lista'],['b','B · App'],['c','C · Editorial']].map(([id,label])=>({label,bg:v===id?'#F6F0E6':'transparent',fg:v===id?'#2E2520':'#F6F0E6',pick:()=>this.setState({v:id,hl:null,focus:null})}));
+    sw.push({label:this.state.edit?'✓ Pines':'Pines',bg:this.state.edit?'#B5562F':'transparent',fg:'#F6F0E6',pick:()=>this.setState(s=>({edit:!s.edit}))});
+    return {t,isA:v==='a',isB:v==='b',isC:v==='c',list,chips,sections,listTitle:cur,listCount:list.length+' '+t.places,
+      homeHref:L==='en'?'/?lang=en':'/',setEs:()=>this.setLang('es'),setEn:()=>this.setLang('en'),esOp:L==='es'?'1':'.45',enOp:L==='en'?'1':'.45',
+      aCols:mob?'1fr':'minmax(380px,520px) minmax(0,1fr)',aListOrder:mob?'2':'1',aMapOrder:mob?'1':'2',aMapTop:mob?'64px':'64px',aMapH:mob?'42svh':'calc(100vh - 64px)',
+      bChipJust:mob?'flex-start':'center',sh,toggleSheet:e=>{if(this._swiped){this._swiped=false;return;}this.setState(s=>({sheet:!s.sheet}));},bTitleDisp:mob?'none':'block',
+      sheetTouchStart:e=>{this._ty=e.touches[0].clientY;this._swiped=false;},
+      sheetTouchEnd:e=>{const dy=e.changedTouches[0].clientY-(this._ty||0);if(Math.abs(dy)>24){this._swiped=true;this.setState({sheet:dy<0});}},
+      edit:this.state.edit,pinsText:(this.state.tick,H.exportPins()),pinsHint:this.state.mob,copyLabel:this.state.copied?t.copied:t.copy,
+      copyPins:()=>{navigator.clipboard&&navigator.clipboard.writeText(H.exportPins());this.setState({copied:true});setTimeout(()=>this.setState({copied:false}),1600);},
+      resetPins:()=>{H.resetPins();location.reload();},
+      switcher:sw,swDisp:this.state.pinsMode?'flex':'none'};
+  }
+}
+</script>
+</body>
+</html>
