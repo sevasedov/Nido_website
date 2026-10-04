@@ -37,7 +37,7 @@ R.forEach(r=>{r.price=/momo/i.test(r.name)?750:PRICE;});
 const priceOf=name=>(R.find(r=>r.name===name)||{}).price||PRICE;
 const fmt=n=>'$'+Math.round(n).toLocaleString('es-MX');
 const L={
-es:{nav:{location:'Ubicación',rooms:'Habitaciones',house:'La casa',life:'Coliving',work:'Trabajo remoto',guide:'Tepoztlán',faq:'Preguntas',book:'Reservar'},
+es:{nav:{location:'Ubicación',rooms:'Habitaciones',house:'La casa',life:'Coliving',work:'Trabajo remoto',guide:'Tepoztlán',hood:'El barrio',faq:'Preguntas',book:'Reservar'},
  checkin:'Llegada',checkout:'Salida',room:'Habitación',anyRoom:'Cualquier habitación',nights:'noches',night:'noche',perNight:'/ noche',
  nightly:'Por noche',weekly:'Por semana',monthly:'Por mes',weekNote:'−20% semanal',monthNote:'−55% mensual',
  discount:'descuento',total:'Total',sendWa:'Reservar por WhatsApp',askWa:'Escríbenos por WhatsApp',back:'Todas las habitaciones',
@@ -46,7 +46,7 @@ es:{nav:{location:'Ubicación',rooms:'Habitaciones',house:'La casa',life:'Colivi
  amenities:'Qué incluye',pickDates:'Elige fechas para ver el precio exacto',rulesNote:'Fines de semana bienvenidos · −20% semanal · −55% mensual',
  youSave:'Ahorras',lang:'EN',langName:'English',follow:'Síguenos en Instagram',rights:'Tepoztlán, Morelos, México',
  guests:'huéspedes',hosts:'Anfitriones',respond:'Respondemos en menos de 1 hora'},
-en:{nav:{location:'Location',rooms:'Rooms',house:'The house',life:'Coliving',work:'Remote work',guide:'Tepoztlán',faq:'FAQ',book:'Book'},
+en:{nav:{location:'Location',rooms:'Rooms',house:'The house',life:'Coliving',work:'Remote work',guide:'Tepoztlán',hood:'Neighborhood',faq:'FAQ',book:'Book'},
  checkin:'Check-in',checkout:'Check-out',room:'Room',anyRoom:'Any room',nights:'nights',night:'night',perNight:'/ night',
  nightly:'Per night',weekly:'Per week',monthly:'Per month',weekNote:'−20% weekly',monthNote:'−55% monthly',
  discount:'off',total:'Total',sendWa:'Book on WhatsApp',askWa:'Message us on WhatsApp',back:'All rooms',
@@ -146,7 +146,7 @@ function vals(cmp,opts){
  const navKeys=['rooms','house','life','work','guide','faq'];
  return {lang,isEs:lang==='es',isEn:lang==='en',ui,c,logo:'assets/logo-v3.jpg',
   toggleLang:()=>setLang(lang==='es'?'en':'es'),setEs:()=>setLang('es'),setEn:()=>setLang('en'),
-  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','location','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
+  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{const prod=/nidotepoztlan\.com$/.test(location.hostname);location.href=(prod?'/neighborhood':'Neighborhood.dc.html')+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
   isHome:s.view!=='room',isRoom:s.view==='room',goHome:()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());document.title=window.__nidoTitle;setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);},
   rooms,cur,curPhotos:cur.photos,curThumbs:cur.thumbs,others:rooms.filter(r=>r.idx!==cur.idx),
   ci:s.ci||'',co:s.co||'',setCi:e=>set({ci:e.target.value}),setCo:e=>set({co:e.target.value}),
