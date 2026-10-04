@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El barrio de Ixcatepec · Cafés, mercado y transporte cerca de Nido, Tepoztlán</title>
+<meta name="description" content="Cafés, tiendas, mercado, transporte y senderos a unos pasos de Nido, en Ixcatepec, Tepoztlán.">
+<link rel="canonical" href="https://nidotepoztlan.com/neighborhood">
+<link rel="alternate" hreflang="es" href="https://nidotepoztlan.com/neighborhood">
+<link rel="alternate" hreflang="en" href="https://nidotepoztlan.com/en/neighborhood">
+<link rel="alternate" hreflang="x-default" href="https://nidotepoztlan.com/neighborhood">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nido Tepoztlán">
+<meta property="og:url" content="https://nidotepoztlan.com/neighborhood">
+<meta property="og:title" content="El barrio de Ixcatepec · Cafés, mercado y transporte cerca de Nido, Tepoztlán">
+<meta property="og:description" content="Cafés, tiendas, mercado, transporte y senderos a unos pasos de Nido, en Ixcatepec, Tepoztlán.">
+<meta property="og:image" content="https://nidotepoztlan.com/assets/view-hills.jpg">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<title>El barrio · Nido Tepoztlán</title>
-<meta name="description" content="Cafés, tiendas, mercado, transporte y senderos a unos pasos de Nido, en Ixcatepec, Tepoztlán."></meta>
-<link rel="canonical" href="https://nidotepoztlan.com/neighborhood"></link>
-</meta>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet"></link>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"></link>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"></link>
@@ -169,7 +177,7 @@ class Component extends DCLogic {
   state={lang:'es',v:null,filter:null,hl:null,focus:null,edit:false,sheet:false,mob:false,tick:0,copied:false};
   componentDidMount(){
     const q=new URLSearchParams(location.search);const s={};
-    if(q.get('lang')==='en')s.lang='en';if(['a','b','c'].includes(q.get('v')))s.v=q.get('v');if(q.has('pins')){s.edit=true;s.pinsMode=true;}
+    if(window.NIDO_LANG)s.lang=window.NIDO_LANG;else if(q.get('lang')==='en')s.lang='en';if(['a','b','c'].includes(q.get('v')))s.v=q.get('v');if(q.has('pins')){s.edit=true;s.pinsMode=true;}
     s.mob=window.innerWidth<820;this.setState(s);
     this._rs=()=>{const m=window.innerWidth<820;if(m!==this.state.mob)this.setState({mob:m});};window.addEventListener('resize',this._rs);
     const go=()=>{if(window.L&&window.NIDO_HOOD)this.sync();else setTimeout(go,120);};go();
@@ -186,7 +194,7 @@ class Component extends DCLogic {
       else if(v==='a'){const off=this.state.mob?window.innerHeight*0.42+72:90;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:'smooth'});}
     };
     setTimeout(run,60);if(v==='b')setTimeout(run,380);}
-  setLang(l){this.setState({lang:l});const u=new URL(location.href);if(l==='en')u.searchParams.set('lang','en');else u.searchParams.delete('lang');history.replaceState(null,'',u);}
+  setLang(l){if(window.NIDO_PATHS){if(l!==this.state.lang)location.href=(l==='en'?'/en':'')+'/neighborhood';return;}this.setState({lang:l});const u=new URL(location.href);if(l==='en')u.searchParams.set('lang','en');else u.searchParams.delete('lang');history.replaceState(null,'',u);}
   renderVals(){
     const H=window.NIDO_HOOD||{CATS:[],PLACES:[],cat:()=>({}),gmaps:()=>'#',exportPins:()=>''};
     const L=this.state.lang==='en'?'en':'es',t=T[L],v=this.ver(),mob=this.state.mob,f=this.state.filter,hl=this.state.hl;
@@ -206,7 +214,7 @@ class Component extends DCLogic {
     const sw=[['a','A · Mapa + lista'],['b','B · App'],['c','C · Editorial']].map(([id,label])=>({label,bg:v===id?'#F6F0E6':'transparent',fg:v===id?'#2E2520':'#F6F0E6',pick:()=>this.setState({v:id,hl:null,focus:null})}));
     sw.push({label:this.state.edit?'✓ Pines':'Pines',bg:this.state.edit?'#B5562F':'transparent',fg:'#F6F0E6',pick:()=>this.setState(s=>({edit:!s.edit}))});
     return {t,isA:v==='a',isB:v==='b',isC:v==='c',list,chips,sections,listTitle:cur,listCount:list.length+' '+t.places,
-      homeHref:L==='en'?'/?lang=en':'/',setEs:()=>this.setLang('es'),setEn:()=>this.setLang('en'),esOp:L==='es'?'1':'.45',enOp:L==='en'?'1':'.45',
+      homeHref:L==='en'?'/en/':'/',setEs:()=>this.setLang('es'),setEn:()=>this.setLang('en'),esOp:L==='es'?'1':'.45',enOp:L==='en'?'1':'.45',
       aCols:mob?'1fr':'minmax(380px,520px) minmax(0,1fr)',aListOrder:mob?'2':'1',aMapOrder:mob?'1':'2',aMapTop:mob?'64px':'64px',aMapH:mob?'42svh':'calc(100vh - 64px)',
       bChipJust:mob?'flex-start':'center',sh,toggleSheet:e=>{if(this._swiped){this._swiped=false;return;}this.setState(s=>({sheet:!s.sheet}));},bTitleDisp:mob?'none':'block',
       sheetTouchStart:e=>{this._ty=e.touches[0].clientY;this._swiped=false;},

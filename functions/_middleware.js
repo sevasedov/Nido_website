@@ -2,6 +2,7 @@
 //
 //   /                 Spanish home        /en/               English home
 //   /ave-suave ...    Spanish room pages  /en/ave-suave ...  English room pages
+//   /neighborhood     Spanish barrio page /en/neighborhood   English barrio page
 //
 // Google reads the title, description, canonical, hreflang and structured
 // data straight from the HTML this returns, so each room ranks on its own.
@@ -12,12 +13,12 @@ const IMG = SITE + '/assets/view-hills.jpg';
 
 const HOME = {
   es: {
-    title: 'Nido · Casa de huéspedes y coliving en Tepoztlán, Morelos',
-    desc: 'Estancias largas y fines de semana en Tepoztlán. Habitaciones privadas en una casa con jardín, cocina y dos salas en Ixcatepec, a 10 min del centro en transporte público. Desde $600 MXN por noche.',
+    title: 'Nido · Hospedaje y habitaciones por mes en Tepoztlán, Morelos',
+    desc: 'Hospedaje en Tepoztlán por noche, semana o mes: habitaciones privadas en una casa con jardín, cocina y wifi en Ixcatepec, a 10 min del centro. Desde $600 MXN/noche, hasta 55% menos por mes.',
   },
   en: {
-    title: 'Nido · Guest house & coliving in Tepoztlán, Morelos',
-    desc: 'Long stays and weekends in Tepoztlán. Private rooms in a house with a garden, kitchen and two living rooms in Ixcatepec, 10 min from the center by public transport. From $600 MXN per night.',
+    title: 'Nido · Guest house & rooms by the month in Tepoztlán, Morelos',
+    desc: 'Stay in Tepoztlán by the night, week or month: private rooms in a house with a garden, kitchen and wifi in Ixcatepec, 10 min from the center. From $600 MXN/night, up to 55% off monthly.',
   },
 };
 
@@ -52,6 +53,13 @@ const ROOMS = {
   },
 };
 
+const HOOD = {
+  es: { title: 'El barrio de Ixcatepec · Cafés, mercado y transporte cerca de Nido, Tepoztlán',
+        desc: 'Cafés, tiendas, mercado, transporte y senderos a unos pasos de Nido, en Ixcatepec, Tepoztlán.' },
+  en: { title: 'Ixcatepec neighborhood guide · Cafés, market & transport near Nido, Tepoztlán',
+        desc: 'Cafés, shops, the market, public transport and trails steps from Nido in Ixcatepec, Tepoztlán.' },
+};
+
 const BUSINESS = {
   '@type': 'LodgingBusiness',
   '@id': SITE + '/#nido',
@@ -81,6 +89,7 @@ function page(pathname) {
   const m = pathname.match(/^(\/en)?\/([a-z-]*)$/);
   if (!m) return null;
   const lang = m[1] ? 'en' : 'es', slug = m[2];
+  if (slug === 'neighborhood') return { lang, room: null, hood: true };
   if (slug && !ROOMS[slug]) return null;
   return { lang, room: slug || null };
 }
@@ -113,14 +122,14 @@ export async function onRequest(ctx) {
   if (p === '/en') return Response.redirect(SITE + '/en/', 301);
   if (p.length > 1 && p.endsWith('/') && p !== '/en/') {
     const clean = p.slice(0, -1);
-    if (page(clean) || clean === '/neighborhood') return Response.redirect(SITE + clean + url.search, 301);
+    if (page(clean)) return Response.redirect(SITE + clean + url.search, 301);
   }
 
   const pg = page(p);
 
   // Legacy ?lang=en links → /en/...
   if (pg && pg.lang === 'es' && url.searchParams.get('lang') === 'en') {
-    return Response.redirect(SITE + pathFor('en', pg.room), 301);
+    return Response.redirect(SITE + pathFor('en', pg.hood ? 'neighborhood' : pg.room), 301);
   }
 
   // Scripts and images requested from under /en/ live at the site root
@@ -130,13 +139,14 @@ export async function onRequest(ctx) {
 
   if (!pg) return ctx.next();
 
-  const res = await ctx.env.ASSETS.fetch(new Request(new URL('/', url), ctx.request));
+  const res = await ctx.env.ASSETS.fetch(new Request(new URL(pg.hood ? '/neighborhood' : '/', url), ctx.request));
   if (!res.ok) return res;
 
-  const { lang, room } = pg;
-  const meta = room ? ROOMS[room][lang] : HOME[lang];
-  const self = SITE + pathFor(lang, room);
-  const es = SITE + pathFor('es', room), en = SITE + pathFor('en', room);
+  const { lang, room, hood } = pg;
+  const meta = hood ? HOOD[lang] : room ? ROOMS[room][lang] : HOME[lang];
+  const slug = hood ? 'neighborhood' : room;
+  const self = SITE + pathFor(lang, slug);
+  const es = SITE + pathFor('es', slug), en = SITE + pathFor('en', slug);
   const ogImg = room ? SITE + '/' + ROOMS[room].img : IMG;
   const boot = {
     lang,

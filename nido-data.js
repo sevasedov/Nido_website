@@ -154,7 +154,7 @@ function vals(cmp,opts){
  const navKeys=['rooms','house','life','work','guide','faq'];
  return {lang,isEs:lang==='es',isEn:lang==='en',ui,c,logo:'assets/logo-v3.jpg',
   toggleLang:()=>setLang(lang==='es'?'en':'es'),setEs:()=>setLang('es'),setEn:()=>setLang('en'),
-  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{const prod=/nidotepoztlan\.com$/.test(location.hostname);location.href=(prod?'/neighborhood':'neighborhood.html')+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
+  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{location.href=PROD?(lang==='en'?'/en':'')+'/neighborhood':'neighborhood.html'+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
   isHome:s.view!=='room',isRoom:s.view==='room',goHome:()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);},
   rooms,cur,curPhotos:cur.photos,curThumbs:cur.thumbs,others:rooms.filter(r=>r.idx!==cur.idx),
   ci:s.ci||'',co:s.co||'',setCi:e=>set({ci:e.target.value}),setCo:e=>set({co:e.target.value}),
