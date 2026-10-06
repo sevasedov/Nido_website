@@ -68,7 +68,7 @@ const BUSINESS = {
   image: IMG,
   logo: SITE + '/assets/logo-v3.jpg',
   telephone: '+529983196367',
-  email: 'nidotepoztlan@gmail.com',
+  email: 'info@nidotepoztlan.com',
   address: { '@type': 'PostalAddress', streetAddress: 'Calle Progreso 1B, Ixcatepec', addressLocality: 'Tepoztlán',
              addressRegion: 'Morelos', postalCode: '62525', addressCountry: 'MX' },
   geo: { '@type': 'GeoCoordinates', latitude: 18.9758, longitude: -99.0791 },
