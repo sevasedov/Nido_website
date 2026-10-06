@@ -32,7 +32,7 @@ R[2].photos=[1,2,3,4,5,6,7].map(i=>A('trebol-'+i)).concat(A('sign-trebol'));R[2]
 ['momo-bed1','momo-bed2','momo-bed3','momo-bath1','momo-top','sign-momo'].forEach(n=>{R[3].photos.push(A(n));R[3].thumbs.push(A(n));});
 const PORTRAIT=new Set(["ave-6","ave-7","loro-5","loro-7","trebol-5","trebol-6","trebol-7","momo-bed1","momo-bath1","sign-ave","sign-loro","sign-trebol","sign-momo"]);R.forEach(r=>{r.heroIdx=r.photos.map((p,i)=>PORTRAIT.has((p.match(/assets\/([^.]+)\./)||[])[1])?-1:i).filter(i=>i>=0);});
 const NATURE={hero:[A('tepozteco'),A('house-pink1')],garden:[A('house-pink1'),A('house-pink2'),A('flower-orange'),A('papaya'),A('pomegranate'),A('flower-yellow'),A('flower-pink'),A('leaves')],views:[A('tepozteco'),A('view-hills'),A('view-cliff'),A('view-range'),A('view-rock')],details:[A('sun-lamp'),A('lamp-wall'),A('chandelier')]};
-const PRICE=600,WK=0.20,MO=0.55,WA='529983196367',EMAIL='nidotepoztlan@gmail.com',GMAPS='https://www.google.com/maps/place/NiDO/@18.9757952,-99.0791189,18z/data=!4m6!3m5!1s0x85ce0d001659fb6f:0xac0e11039e079134!8m2!3d18.9757952!4d-99.0791189!16s%2Fg%2F11w35dp7fk';
+const PRICE=600,WK=0.20,MO=0.55,WA='529983196367',EMAIL='info@nidotepoztlan.com',GMAPS='https://www.google.com/maps/place/NiDO/@18.9757952,-99.0791189,18z/data=!4m6!3m5!1s0x85ce0d001659fb6f:0xac0e11039e079134!8m2!3d18.9757952!4d-99.0791189!16s%2Fg%2F11w35dp7fk';
 R.forEach(r=>{r.price=/momo/i.test(r.name)?750:PRICE;});
 const priceOf=name=>(R.find(r=>r.name===name)||{}).price||PRICE;
 const fmt=n=>'$'+Math.round(n).toLocaleString('es-MX');
@@ -115,36 +115,28 @@ function waLink(lang,room,a,b){const q=quote(a,b,priceOf(room));let t;
 function mailLink(lang,room,a,b){const q=quote(a,b,priceOf(room));const sub=lang==='es'?'Reserva Nido'+(room?' · '+room:''):'Nido booking'+(room?' · '+room:'');
  const body=lang==='es'?`Hola Nido,\n\nMe gustaría reservar ${room||'una habitación'}`+(q.has?` del ${fmtDate(a,lang)} al ${fmtDate(b,lang)} (${q.nights} noches, ${q.total} MXN)`:'')+'.\n\n¿Está disponible?\n\nGracias':`Hi Nido,\n\nI\u2019d like to book ${room||'a room'}`+(q.has?` from ${fmtDate(a,lang)} to ${fmtDate(b,lang)} (${q.nights} nights, ${q.total} MXN)`:'')+'.\n\nIs it available?\n\nThanks';
  return `mailto:${EMAIL}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;}
-function initLang(){if(window.NIDO_LANG)return window.NIDO_LANG;try{const p=new URLSearchParams(location.search).get('lang');if(p==='en'||p==='es')return p;return localStorage.getItem('nido-lang')||'es';}catch(e){return 'es';}}
+function initLang(){try{const p=new URLSearchParams(location.search).get('lang');if(p==='en'||p==='es')return p;return localStorage.getItem('nido-lang')||'es';}catch(e){return 'es';}}
 R.forEach(r=>{r.path=r.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,'-');});
-const PROD=!!window.NIDO_PATHS||/(^|\.)nidotepoztlan\.(com|mx)$/.test(location.hostname);
-const curLang=()=>(window.__nidoCmp&&window.__nidoCmp.state.lang)||initLang();
-const pagePath=(l,i)=>(l==='en'?'/en':'')+'/'+(i>=0?R[i].path:'');
-function syncHead(i,l){l=l||curLang();const S='https://nidotepoztlan.com',M=window.NIDO_META,q=(sel,a,v)=>{const e=document.querySelector(sel);if(e)e.setAttribute(a,v);};
- if(M)document.title=i>=0?M.rooms[R[i].path][l]:M.home[l];else{window.__nidoTitle=window.__nidoTitle||document.title;document.title=i>=0?R[i].name+' · '+window.__nidoTitle:window.__nidoTitle;}
- if(!PROD)return;q('link[rel=canonical]','href',S+pagePath(l,i));q('meta[property="og:url"]','content',S+pagePath(l,i));
- q('link[hreflang="es"]','href',S+pagePath('es',i));q('link[hreflang="en"]','href',S+pagePath('en',i));q('link[hreflang="x-default"]','href',S+pagePath('es',i));}
-function faqLd(l,faq){let e=document.getElementById('nido-faq-ld');if(e&&e.dataset.lang===l)return;if(!e){e=document.createElement('script');e.type='application/ld+json';e.id='nido-faq-ld';document.head.appendChild(e);}
- e.dataset.lang=l;e.textContent=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:faq.map(f=>({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}}))});}
+const PROD=/(^|\.)nidotepoztlan\.(com|mx)$/.test(location.hostname);
 function roomFromUrl(){const seg=(location.pathname.split('/').filter(Boolean).pop()||'').toLowerCase();const q=(new URLSearchParams(location.search).get('room')||'').toLowerCase();return R.findIndex(r=>r.path===seg||r.path===q||r.slug===q||r.slug===seg);}
-function setCanon(i){syncHead(i);}
+function setCanon(i){const u='https://nidotepoztlan.com/'+(i>=0?R[i].path:'');const l=document.querySelector('link[rel=canonical]');if(l)l.href=u;const o=document.querySelector('meta[property="og:url"]');if(o)o.content=u;}
 function vals(cmp,opts){
  const s=cmp.state,lang=s.lang||'es',ui=L[lang],c=C[lang];
  const set=o=>cmp.setState(o);
- try{faqLd(lang,c.faq||[]);}catch(e){}
- const setLang=l=>{try{localStorage.setItem('nido-lang',l);}catch(e){}if(window.NIDO_PATHS&&l!==lang){location.href=pagePath(l,s.view==='room'?s.room:-1);return;}document.documentElement.lang=l;set({lang:l});};
+ const setLang=l=>{try{localStorage.setItem('nido-lang',l);}catch(e){}document.documentElement.lang=l;set({lang:l});};
  const scrollTo=id=>{const go=()=>{const el=document.getElementById(id);if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-(opts&&opts.offset||0),behavior:'smooth'});};
-  if(s.view!=='home'){route({},homeUrl());setCanon(-1);set({view:'home'});setTimeout(go,60);}else go();};
+  if(s.view!=='home'){route({},homeUrl());document.title=window.__nidoTitle;setCanon(-1);set({view:'home'});setTimeout(go,60);}else go();};
+ window.__nidoTitle=window.__nidoTitle||document.title;
  const route=(o,url)=>{try{history.pushState(o,'',url);}catch(e){}};
  if(!window.__nidoPop){window.__nidoPop=1;
   const apply=()=>{const c=window.__nidoCmp;if(!c)return;const i=roomFromUrl();
-   if(i>=0){c.setState({view:'room',room:i,sel:i});setCanon(i);window.scrollTo(0,0);}
-   else if(c.state.view==='room'){c.setState({view:'home'});setCanon(-1);setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);}};
+   if(i>=0){c.setState({view:'room',room:i,sel:i});document.title=R[i].name+' · '+window.__nidoTitle;setCanon(i);window.scrollTo(0,0);}
+   else if(c.state.view==='room'){c.setState({view:'home'});document.title=window.__nidoTitle;setCanon(-1);setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);}};
   window.addEventListener('popstate',apply);setTimeout(apply,0);}
  window.__nidoCmp=cmp;
- const homeUrl=()=>PROD?pagePath(lang,-1):location.pathname;
- const openRoom=i=>{route({room:i},PROD?pagePath(lang,i):'?room='+R[i].path);set({view:'room',room:i,sel:i});setCanon(i);window.scrollTo(0,0);};
- const rooms=R.map((r,i)=>({...r,idx:i,num:'0'+(i+1),desc:r[lang],bath:r.shared?ui.sharedBath:ui.privateBath,href:PROD?pagePath(lang,i):'?room='+r.path,alt:lang==='es'?'Habitación '+r.name+' en Nido, Tepoztlán':r.name+' room at Nido, Tepoztlán',open:e=>{if(e&&(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1))return;if(e&&e.preventDefault)e.preventDefault();openRoom(i);},pNight:fmt(r.price),pWeek:fmt(r.price*7*(1-WK)),pMonth:fmt(r.price*30*(1-MO)),pWeekNight:fmt(r.price*(1-WK)),pMonthNight:fmt(r.price*(1-MO)),photo:r.photos[0],thumb:r.thumbs[0],hover:r.thumbs[1]}));
+ const homeUrl=()=>PROD?'/':location.pathname;
+ const openRoom=i=>{route({room:i},PROD?'/'+R[i].path:'?room='+R[i].path);set({view:'room',room:i,sel:i});document.title=R[i].name+' · '+window.__nidoTitle;setCanon(i);window.scrollTo(0,0);};
+ const rooms=R.map((r,i)=>({...r,idx:i,num:'0'+(i+1),desc:r[lang],bath:r.shared?ui.sharedBath:ui.privateBath,open:()=>openRoom(i),pNight:fmt(r.price),pWeek:fmt(r.price*7*(1-WK)),pMonth:fmt(r.price*30*(1-MO)),pWeekNight:fmt(r.price*(1-WK)),pMonthNight:fmt(r.price*(1-MO)),photo:r.photos[0],thumb:r.thumbs[0],hover:r.thumbs[1]}));
  const cur=rooms[s.room||0];
  const es=lang==='es';
  const roomAmen=[{i:'ph-bed',k:ui.doubleBed},{i:cur.shared?'ph-users-three':'ph-shower',k:cur.bath},{i:'ph-lock-key',k:es?'Cerradura en la puerta':'Lock on the door'},{i:'ph-wifi-high',k:'Wifi'},{i:'ph-desk',k:es?'Espacio de trabajo':'Workspace'},{i:'ph-mountains',k:es?'Vista a la montaña':'Mountain view'},{i:'ph-key',k:es?'Check-in autónomo':'Self check-in'},{i:'ph-cooking-pot',k:es?'Acceso a cocina':'Kitchen access'},{i:'ph-plant',k:es?'Acceso al jardín':'Garden access'},{i:'ph-couch',k:es?'Dos salas comunes':'Two living rooms'},{i:'ph-calendar-check',k:es?'−20% semana · −55% mes':'−20% week · −55% month'},{i:'ph-translate',k:'ES · EN · RU'}];
@@ -154,8 +146,8 @@ function vals(cmp,opts){
  const navKeys=['rooms','house','life','work','guide','faq'];
  return {lang,isEs:lang==='es',isEn:lang==='en',ui,c,logo:'assets/logo-v3.jpg',
   toggleLang:()=>setLang(lang==='es'?'en':'es'),setEs:()=>setLang('es'),setEn:()=>setLang('en'),
-  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{location.href=PROD?(lang==='en'?'/en':'')+'/neighborhood':'neighborhood.html'+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
-  isHome:s.view!=='room',isRoom:s.view==='room',goHome:()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);},
+  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{const prod=/nidotepoztlan\.com$/.test(location.hostname);location.href=(prod?'/neighborhood':'Neighborhood.dc.html')+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollTo('book'),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
+  isHome:s.view!=='room',isRoom:s.view==='room',goHome:()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());document.title=window.__nidoTitle;setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);},
   rooms,cur,curPhotos:cur.photos,curThumbs:cur.thumbs,others:rooms.filter(r=>r.idx!==cur.idx),
   ci:s.ci||'',co:s.co||'',setCi:e=>set({ci:e.target.value}),setCo:e=>set({co:e.target.value}),
   sel:s.sel==null?-1:s.sel,setSel:e=>set({sel:+e.target.value}),roomOpts,q,noQuote:!q.has,
