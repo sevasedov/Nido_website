@@ -21,3 +21,8 @@ Static site. No build step. Upload the contents of this folder to the root of th
   / and /en/ (home), /ave-suave, /loro-loco, /trebol-azul, /momo-toh and their /en/ versions.
 - To change a room's Google title or description, edit ROOMS in that file.
 - Adding a room: add it to nido-data.js, to ROOMS in functions/_middleware.js, and to sitemap.xml.
+
+## ⚠️ Before replacing index.html or nido-data.js with a new export
+The design-tool export doesn't contain the SEO code. If you overwrite these two files with a fresh export, English pages lose their own canonical and the room links stop being crawlable.
+Safer: change only the text you need in the repo copy, or ask Claude to merge the new export into the current files.
+functions/_middleware.js always rewrites titles, canonicals, hreflang and schema on the server, so those survive an overwrite either way.

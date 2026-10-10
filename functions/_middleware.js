@@ -72,17 +72,24 @@ const BUSINESS = {
   address: { '@type': 'PostalAddress', streetAddress: 'Calle Progreso 1B, Ixcatepec', addressLocality: 'Tepoztlán',
              addressRegion: 'Morelos', postalCode: '62525', addressCountry: 'MX' },
   geo: { '@type': 'GeoCoordinates', latitude: 18.9758, longitude: -99.0791 },
-  hasMap: 'https://maps.google.com/?cid=12397869118622683444',
+  hasMap: 'https://maps.google.com/?cid=12397865531431424308',
   priceRange: '$600–$750 MXN',
   currenciesAccepted: 'MXN',
   numberOfRooms: 4,
   availableLanguage: ['es', 'en', 'ru'],
   amenityFeature: ['Wifi', 'Cocina compartida', 'Jardín', 'Espacio de trabajo', 'Dos salas comunes', 'Check-in autónomo', 'Vista a la montaña']
     .map(n => ({ '@type': 'LocationFeatureSpecification', name: n, value: true })),
+  makesOffer: Object.entries(ROOMS).map(([slug, r]) => ({
+    '@type': 'Offer',
+    url: SITE + '/' + slug,
+    priceSpecification: { '@type': 'UnitPriceSpecification', price: r.price, priceCurrency: 'MXN', unitText: 'night' },
+    itemOffered: { '@type': 'HotelRoom', name: r.name, url: SITE + '/' + slug },
+  })),
   sameAs: ['https://www.instagram.com/nidotepoztlan/',
            ...Object.values(ROOMS).map(r => 'https://www.airbnb.com/rooms/' + r.airbnb)],
 };
 
+const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const pathFor = (lang, room) => (lang === 'en' ? '/en' : '') + '/' + (room || '');
 
 function page(pathname) {
@@ -154,24 +161,44 @@ export async function onRequest(ctx) {
     rooms: Object.fromEntries(Object.entries(ROOMS).map(([k, r]) => [k, { es: r.es.title, en: r.en.title }])),
   };
 
-  const set = (attr, value) => ({ element(el) { el.setAttribute(attr, value); } });
+  // This function owns every SEO tag. Whatever index.html or neighborhood.html
+  // contain (even an older export with tags inside <helmet>), those tags are
+  // removed and a correct set is written into <head>. Re-exporting the page
+  // from the design tool can no longer break titles, canonicals or schema.
+  const attr = s => esc(s);
+  const ld = hood ? null : ldFor(lang, room);
+  const headTags = [
+    '<script>window.NIDO_PATHS=1;window.NIDO_LANG=' + JSON.stringify(lang) +
+      ';window.NIDO_META=' + JSON.stringify(boot).replace(/</g, '\\u003c') +
+      ';try{localStorage.setItem("nido-lang",' + JSON.stringify(lang) + ')}catch(e){}</script>',
+    '<title>' + esc(meta.title) + '</title>',
+    '<meta name="description" content="' + attr(meta.desc) + '">',
+    '<link rel="canonical" href="' + self + '">',
+    '<link rel="alternate" hreflang="es" href="' + es + '">',
+    '<link rel="alternate" hreflang="en" href="' + en + '">',
+    '<link rel="alternate" hreflang="x-default" href="' + es + '">',
+    '<meta property="og:type" content="website">',
+    '<meta property="og:site_name" content="Nido Tepoztlán">',
+    '<meta property="og:locale" content="' + (lang === 'en' ? 'en_US' : 'es_MX') + '">',
+    '<meta property="og:url" content="' + self + '">',
+    '<meta property="og:title" content="' + attr(meta.title) + '">',
+    '<meta property="og:description" content="' + attr(meta.desc) + '">',
+    '<meta property="og:image" content="' + ogImg + '">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    ld ? '<script type="application/ld+json" id="nido-ld">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>' : '',
+  ].filter(Boolean).join('\n');
+
+  const drop = { element(el) { el.remove(); } };
   const out = new HTMLRewriter()
-    .on('html', set('lang', lang))
-    .on('title', { element(el) { el.setInnerContent(meta.title); } })
-    .on('meta[name="description"]', set('content', meta.desc))
-    .on('link[rel="canonical"]', set('href', self))
-    .on('link[hreflang="es"]', set('href', es))
-    .on('link[hreflang="en"]', set('href', en))
-    .on('link[hreflang="x-default"]', set('href', es))
-    .on('meta[property="og:url"]', set('content', self))
-    .on('meta[property="og:title"]', set('content', meta.title))
-    .on('meta[property="og:description"]', set('content', meta.desc))
-    .on('meta[property="og:locale"]', set('content', lang === 'en' ? 'en_US' : 'es_MX'))
-    .on('meta[property="og:image"]', set('content', ogImg))
-    .on('script#nido-ld', { element(el) { el.setInnerContent(JSON.stringify(ldFor(lang, room)), { html: true }); } })
-    .on('meta[charset]', { element(el) {
-      el.after('<script>window.NIDO_PATHS=1;window.NIDO_LANG=' + JSON.stringify(lang) + ';window.NIDO_META=' + JSON.stringify(boot).replace(/</g, '\\u003c') + ';</script>', { html: true });
-    } })
+    .on('html', { element(el) { el.setAttribute('lang', lang); } })
+    .on('title', drop)
+    .on('meta[name="description"]', drop)
+    .on('link[rel="canonical"]', drop)
+    .on('link[hreflang]', drop)
+    .on('meta[property^="og:"]', drop)
+    .on('meta[name^="twitter:"]', drop)
+    .on('script[type="application/ld+json"]', drop)
+    .on('meta[charset]', { element(el) { el.after('\n' + headTags, { html: true }); } })
     .transform(res);
 
   const headers = new Headers(out.headers);
