@@ -64,6 +64,7 @@ const BUSINESS = {
   '@type': 'LodgingBusiness',
   '@id': SITE + '/#nido',
   name: 'Nido Tepoztlán',
+  alternateName: 'NiDO',
   url: SITE + '/',
   image: IMG,
   logo: SITE + '/assets/logo-v3.jpg',
@@ -76,8 +77,12 @@ const BUSINESS = {
   priceRange: '$600–$750 MXN',
   currenciesAccepted: 'MXN',
   numberOfRooms: 4,
+  checkinTime: '13:00',
+  checkoutTime: '12:00',
+  petsAllowed: true,
+  paymentAccepted: 'Cash, Bank transfer, Cryptocurrency',
   availableLanguage: ['es', 'en', 'ru'],
-  amenityFeature: ['Wifi', 'Cocina compartida', 'Jardín', 'Espacio de trabajo', 'Dos salas comunes', 'Check-in autónomo', 'Vista a la montaña']
+  amenityFeature: ['Wifi', 'Cocina compartida', 'Jardín', 'Espacio de trabajo', 'Dos salas comunes', 'Check-in autónomo', 'Vista a la montaña', 'Lavandería de autoservicio']
     .map(n => ({ '@type': 'LocationFeatureSpecification', name: n, value: true })),
   makesOffer: Object.entries(ROOMS).map(([slug, r]) => ({
     '@type': 'Offer',
