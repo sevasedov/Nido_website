@@ -129,6 +129,13 @@ export async function onRequest(ctx) {
   const url = new URL(ctx.request.url);
   const p = url.pathname;
 
+  // Unfilled template placeholders (e.g. /{{ p.dir }}) that crawlers picked up
+  // from the raw HTML before it was cleaned up. These pages never existed:
+  // 410 Gone tells Google to drop them for good instead of re-checking.
+  if (/\{\{|\}\}|%7B%7B|%7D%7D/i.test(p)) {
+    return new Response('Gone', { status: 410, headers: { 'content-type': 'text/plain; charset=utf-8', 'x-robots-tag': 'noindex' } });
+  }
+
   // Old URLs → new ones (permanent)
   if (p === '/Neighborhood.dc.html' || p === '/Neighborhood.dc') return Response.redirect(SITE + '/neighborhood', 301);
   if (p === '/en') return Response.redirect(SITE + '/en/', 301);

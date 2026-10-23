@@ -33,7 +33,7 @@
 
   <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
     <header style="position:sticky;top:0;z-index:1100;height:64px;box-sizing:border-box;padding:0 clamp(16px,3vw,32px);display:flex;align-items:center;justify-content:space-between;gap:16px;background:#EEE6DA;border-bottom:1px solid #D6C8B6">
-      <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
+      <a sc-camel-href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
       <div style="display:flex;gap:8px;font-size:12px;letter-spacing:.18em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
     </header>
     <div style="display:grid;grid-template-columns:{{ aCols }};align-items:start">
@@ -47,15 +47,15 @@
         <div style="display:flex;flex-direction:column">
           <sc-for list="{{ list }}" as="p" hint-placeholder-count="6">
             <article id="{{ p.domId }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" onClick="{{ p.click }}" style="display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;padding:20px 14px;margin:0 -14px;border-top:1px solid #D6C8B6;background:{{ p.bg }};box-shadow:inset 3px 0 0 {{ p.bar }};cursor:pointer;transition:background .15s">
-              <div style="width:76px;height:76px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;overflow:hidden"><sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></sc-if><sc-if value="{{ p.noPhoto }}"><i class="{{ p.icon }}" style="font-size:28px;color:{{ p.color }}"></i></sc-if></div>
+              <div style="width:76px;height:76px;background:color-mix(in oklab,{{ p.color }} 16%,#EEE6DA);display:flex;align-items:center;justify-content:center;overflow:hidden"><sc-if value="{{ p.hasPhoto }}"><img sc-camel-src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></sc-if><sc-if value="{{ p.noPhoto }}"><i class="{{ p.icon }}" style="font-size:28px;color:{{ p.color }}"></i></sc-if></div>
               <div style="min-width:0">
                 <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:24px;line-height:1.15">{{ p.name }}</h3><span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:{{ p.color }}">{{ p.catLabel }}</span></div>
                 <p style="margin:6px 0 0;font-size:15px;line-height:1.5;color:#4A3D35">{{ p.d }}</p>
                 <sc-if value="{{ p.hasHours }}"><div style="margin-top:8px;font-size:13px;color:#7A6A5E;display:flex;align-items:center;gap:6px"><i class="ph-light ph-clock" style="font-size:15px"></i>{{ p.hours }}</div></sc-if>
                 <sc-if value="{{ p.hasTip }}"><p style="margin:10px 0 0;font-family:'Newsreader',serif;font-style:italic;font-size:17px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
                 <div style="display:flex;gap:18px;margin-top:12px;font-size:13px;flex-wrap:wrap">
-                  <a href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#9A5236;border-bottom:1px solid currentColor;padding-bottom:1px">{{ t.dir }}</a>
-                  <sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#4E6A4C;border-bottom:1px solid currentColor;padding-bottom:1px">AllTrails</a></sc-if>
+                  <a sc-camel-href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#9A5236;border-bottom:1px solid currentColor;padding-bottom:1px">{{ t.dir }}</a>
+                  <sc-if value="{{ p.hasLink }}"><a sc-camel-href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#4E6A4C;border-bottom:1px solid currentColor;padding-bottom:1px">AllTrails</a></sc-if>
                 </div>
               </div>
             </article>
@@ -73,7 +73,7 @@
       <div data-hood-map="1" data-fit="near" data-wheel="1" data-nozoom="1" data-pad="80" style="position:absolute;inset:0"></div>
       <div style="position:absolute;top:0;left:0;right:0;z-index:1000;padding:14px;display:flex;flex-direction:column;gap:10px;pointer-events:none;background:linear-gradient(180deg,rgba(238,230,218,.92),rgba(238,230,218,0))">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:auto">
-          <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.16em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:16px"></i>Nido</a>
+          <a sc-camel-href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.16em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:16px"></i>Nido</a>
           <div style="font-family:'Newsreader',serif;font-size:22px;display:{{ bTitleDisp }}">{{ t.title }}</div>
           <div style="display:flex;border-radius:999px;background:#F6F0E6;box-shadow:0 2px 10px rgba(46,37,32,.15);font-size:12px;letter-spacing:.14em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:10px 10px 10px 14px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:10px 14px 10px 10px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
         </div>
@@ -96,11 +96,11 @@
                 <sc-if value="{{ p.hasHours }}"><div style="font-size:13px;color:#7A6A5E;margin-top:4px">{{ p.hours }}</div></sc-if>
                 <sc-if value="{{ p.open }}">
                   <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
-                    <sc-if value="{{ p.hasPhoto }}"><img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:8px"></img></sc-if>
+                    <sc-if value="{{ p.hasPhoto }}"><img sc-camel-src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;border-radius:8px"></img></sc-if>
                     <sc-if value="{{ p.hasTip }}"><p style="margin:0;font-family:'Newsreader',serif;font-style:italic;font-size:17px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
                     <div style="display:flex;gap:8px;flex-wrap:wrap">
-                      <a href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:#2E2520;color:#F6F0E6;font-size:14px"><i class="ph-light ph-navigation-arrow" style="font-size:16px"></i>{{ t.dir }}</a>
-                      <sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;padding:10px 16px;border-radius:999px;border:1px solid #2E2520;font-size:14px">AllTrails</a></sc-if>
+                      <a sc-camel-href="{{ p.dir }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:#2E2520;color:#F6F0E6;font-size:14px"><i class="ph-light ph-navigation-arrow" style="font-size:16px"></i>{{ t.dir }}</a>
+                      <sc-if value="{{ p.hasLink }}"><a sc-camel-href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;padding:10px 16px;border-radius:999px;border:1px solid #2E2520;font-size:14px">AllTrails</a></sc-if>
                     </div>
                   </div>
                 </sc-if>
@@ -114,7 +114,7 @@
 
   <sc-if value="{{ isC }}">
     <header style="padding:20px clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:16px">
-      <a href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
+      <a sc-camel-href="{{ homeHref }}" style="display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase"><i class="ph-light ph-arrow-left" style="font-size:18px"></i><span>Nido Tepoztlán</span></a>
       <div style="display:flex;gap:8px;font-size:12px;letter-spacing:.18em"><button onClick="{{ setEs }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ esOp }}">ES</button><button onClick="{{ setEn }}" style="background:none;border:0;padding:6px;cursor:pointer;color:#2E2520;opacity:{{ enOp }}">EN</button></div>
     </header>
     <section style="max-width:1280px;margin:0 auto;padding:clamp(48px,8vw,120px) clamp(20px,4vw,56px) clamp(40px,6vw,80px)">
@@ -122,7 +122,7 @@
       <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(56px,9vw,136px);line-height:.95;margin:20px 0 28px;letter-spacing:-.01em">{{ t.title }}</h1>
       <p style="margin:0;font-size:20px;line-height:1.55;color:#4A3D35;max-width:46ch;text-wrap:pretty">{{ t.sub }}</p>
       <nav style="display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:13px;letter-spacing:.16em;text-transform:uppercase">
-        <sc-for list="{{ sections }}" as="s" hint-placeholder-count="5"><a href="{{ s.anchor }}" style="display:inline-flex;align-items:center;gap:8px"><span style="font-family:'Newsreader',serif;font-style:italic;letter-spacing:0;text-transform:none;color:{{ s.color }}">{{ s.num }}</span>{{ s.label }}</a></sc-for>
+        <sc-for list="{{ sections }}" as="s" hint-placeholder-count="5"><a sc-camel-href="{{ s.anchor }}" style="display:inline-flex;align-items:center;gap:8px"><span style="font-family:'Newsreader',serif;font-style:italic;letter-spacing:0;text-transform:none;color:{{ s.color }}">{{ s.num }}</span>{{ s.label }}</a></sc-for>
       </nav>
     </section>
     <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
@@ -138,7 +138,7 @@
                   <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:26px;color:{{ p.nameColor }};transition:color .15s">{{ p.name }}</h3><sc-if value="{{ p.hasHours }}"><span style="font-size:13px;color:#7A6A5E">{{ p.hours }}</span></sc-if></div>
                   <p style="margin:0;font-size:16px;line-height:1.5;color:#4A3D35">{{ p.d }}</p>
                   <sc-if value="{{ p.hasTip }}"><p style="margin:4px 0 0;font-family:'Newsreader',serif;font-style:italic;font-size:18px;line-height:1.4;color:#5E5048">“{{ p.tip }}”</p></sc-if>
-                  <div style="display:flex;gap:18px;margin-top:6px;font-size:13px"><a href="{{ p.dir }}" target="_blank" rel="noopener" style="color:#9A5236;border-bottom:1px solid currentColor">{{ t.dir }}</a><sc-if value="{{ p.hasLink }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="color:#4E6A4C;border-bottom:1px solid currentColor">AllTrails</a></sc-if></div>
+                  <div style="display:flex;gap:18px;margin-top:6px;font-size:13px"><a sc-camel-href="{{ p.dir }}" target="_blank" rel="noopener" style="color:#9A5236;border-bottom:1px solid currentColor">{{ t.dir }}</a><sc-if value="{{ p.hasLink }}"><a sc-camel-href="{{ p.link }}" target="_blank" rel="noopener" style="color:#4E6A4C;border-bottom:1px solid currentColor">AllTrails</a></sc-if></div>
                 </div>
               </sc-for>
             </div>
@@ -150,7 +150,7 @@
         </div>
       </section>
     </sc-for>
-    <footer style="text-align:center;padding:64px 20px 96px"><a href="{{ homeHref }}" style="font-family:'Newsreader',serif;font-size:24px;border-bottom:1px solid #C9B9A5;padding-bottom:4px">{{ t.back }}</a></footer>
+    <footer style="text-align:center;padding:64px 20px 96px"><a sc-camel-href="{{ homeHref }}" style="font-family:'Newsreader',serif;font-size:24px;border-bottom:1px solid #C9B9A5;padding-bottom:4px">{{ t.back }}</a></footer>
   </sc-if>
 
   <sc-if value="{{ edit }}">
