@@ -36,7 +36,7 @@ const PLACES=[
   tip:{es:'Un clásico de fin de semana en el barrio.',en:'A neighborhood weekend classic.'}},
  {id:'tepozcafe',dq:'Tepoz Café, Ixcatepec, Tepoztlán, Morelos',gm:'https://maps.google.com/?cid=14103321865181327121',photo:'assets/hood/tepozcafe.jpg',cat:'cafe',name:'Tepoz Café',lat:18.974534,lng:-99.077671,
   d:{es:'Cafetería y panadería orgánica.',en:'Organic café and bakery.'}},
- {id:'foodcourt',icon:'ph-fork-knife',cat:'cafe',name:{es:'Food court',en:'Food court'},lat:18.978514,lng:-99.080291,
+ {id:'foodcourt',icon:'ph-fork-knife',photo:'assets/hood/foodcourt.jpg',cat:'cafe',name:{es:'Food court',en:'Food court'},lat:18.978514,lng:-99.080291,
   d:{es:'Varios puestos de comida en un solo lugar.',en:'Several food stalls in one place.'}},
  {id:'casaazul',dq:'La Casa Azul, Ixcatepec, Tepoztlán, Morelos',icon:'ph-cheese',gm:'https://maps.google.com/?cid=6007623657552606054',photo:'assets/hood/casaazul.jpg?v=2',cat:'shop',name:'Casa Azul',lat:18.975348,lng:-99.079235,
   hours:{es:'Todos los días · 11:00–20:00',en:'Every day · 11am–8pm'},
