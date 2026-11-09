@@ -1,0 +1,260 @@
+/* Phosphor Icons 2.1.1 (MIT) — subset to the icons nidotepoztlan.com uses. To add an icon, ask Claude to rebuild this file. */
+
+@font-face{font-family:"Phosphor-Light";src:url("./phosphor-light.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph-light {
+  
+  font-family: "Phosphor-Light" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ph-light.ph-house-line:before{content:"\e2c4"}
+.ph-light.ph-airplane-landing:before{content:"\e502"}
+.ph-light.ph-armchair:before{content:"\e012"}
+.ph-light.ph-arrow-left:before{content:"\e058"}
+.ph-light.ph-arrow-right:before{content:"\e06c"}
+.ph-light.ph-basket:before{content:"\e964"}
+.ph-light.ph-bed:before{content:"\e0cc"}
+.ph-light.ph-bird:before{content:"\e72c"}
+.ph-light.ph-bookmark-simple:before{content:"\e0ea"}
+.ph-light.ph-bus:before{content:"\e106"}
+.ph-light.ph-calendar-check:before{content:"\e712"}
+.ph-light.ph-calendar-dots:before{content:"\e7b4"}
+.ph-light.ph-calendar-heart:before{content:"\e8b0"}
+.ph-light.ph-car-simple:before{content:"\e114"}
+.ph-light.ph-carrot:before{content:"\ed38"}
+.ph-light.ph-chat-circle:before{content:"\e168"}
+.ph-light.ph-chat-circle-dots:before{content:"\e16c"}
+.ph-light.ph-cheese:before{content:"\e9fe"}
+.ph-light.ph-church:before{content:"\ecea"}
+.ph-light.ph-clock:before{content:"\e19a"}
+.ph-light.ph-coffee:before{content:"\e1c2"}
+.ph-light.ph-cooking-pot:before{content:"\e764"}
+.ph-light.ph-couch:before{content:"\e7f6"}
+.ph-light.ph-desk:before{content:"\ed16"}
+.ph-light.ph-dots-three:before{content:"\e1fe"}
+.ph-light.ph-drop:before{content:"\e210"}
+.ph-light.ph-egg:before{content:"\e812"}
+.ph-light.ph-envelope-simple:before{content:"\e218"}
+.ph-light.ph-first-aid:before{content:"\e56e"}
+.ph-light.ph-fork-knife:before{content:"\e262"}
+.ph-light.ph-google-logo:before{content:"\e292"}
+.ph-light.ph-heart:before{content:"\e2a8"}
+.ph-light.ph-ice-cream:before{content:"\e804"}
+.ph-light.ph-instagram-logo:before{content:"\e2d0"}
+.ph-light.ph-key:before{content:"\e2d6"}
+.ph-light.ph-list:before{content:"\e2f0"}
+.ph-light.ph-lock-key:before{content:"\e2fe"}
+.ph-light.ph-map-pin:before{content:"\e316"}
+.ph-light.ph-map-trifold:before{content:"\e31a"}
+.ph-light.ph-minus:before{content:"\e32a"}
+.ph-light.ph-moon-stars:before{content:"\e58e"}
+.ph-light.ph-mountains:before{content:"\e7ae"}
+.ph-light.ph-navigation-arrow:before{content:"\eade"}
+.ph-light.ph-paper-plane-tilt:before{content:"\e398"}
+.ph-light.ph-person-simple-walk:before{content:"\e73a"}
+.ph-light.ph-plant:before{content:"\ebae"}
+.ph-light.ph-plus:before{content:"\e3d4"}
+.ph-light.ph-shopping-bag:before{content:"\e416"}
+.ph-light.ph-shower:before{content:"\e776"}
+.ph-light.ph-star:before{content:"\e46a"}
+.ph-light.ph-storefront:before{content:"\e470"}
+.ph-light.ph-sun-horizon:before{content:"\e5b6"}
+.ph-light.ph-taxi:before{content:"\e902"}
+.ph-light.ph-translate:before{content:"\e4a2"}
+.ph-light.ph-tree:before{content:"\e6da"}
+.ph-light.ph-users-three:before{content:"\e68e"}
+.ph-light.ph-washing-machine:before{content:"\ede8"}
+.ph-light.ph-whatsapp-logo:before{content:"\e5d0"}
+.ph-light.ph-wifi-high:before{content:"\e4ea"}
+.ph-light.ph-wine:before{content:"\e6b2"}
+.ph-light.ph-x:before{content:"\e4f6"}
+@font-face{font-family:"Phosphor";src:url("./phosphor-regular.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph {
+  
+  font-family: "Phosphor" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ph.ph-house-line:before{content:"\e2c4"}
+.ph.ph-airplane-landing:before{content:"\e502"}
+.ph.ph-armchair:before{content:"\e012"}
+.ph.ph-arrow-left:before{content:"\e058"}
+.ph.ph-arrow-right:before{content:"\e06c"}
+.ph.ph-basket:before{content:"\e964"}
+.ph.ph-bed:before{content:"\e0cc"}
+.ph.ph-bird:before{content:"\e72c"}
+.ph.ph-bookmark-simple:before{content:"\e0ea"}
+.ph.ph-bus:before{content:"\e106"}
+.ph.ph-calendar-check:before{content:"\e712"}
+.ph.ph-calendar-dots:before{content:"\e7b4"}
+.ph.ph-calendar-heart:before{content:"\e8b0"}
+.ph.ph-car-simple:before{content:"\e114"}
+.ph.ph-carrot:before{content:"\ed38"}
+.ph.ph-chat-circle:before{content:"\e168"}
+.ph.ph-chat-circle-dots:before{content:"\e16c"}
+.ph.ph-cheese:before{content:"\e9fe"}
+.ph.ph-church:before{content:"\ecea"}
+.ph.ph-clock:before{content:"\e19a"}
+.ph.ph-coffee:before{content:"\e1c2"}
+.ph.ph-cooking-pot:before{content:"\e764"}
+.ph.ph-couch:before{content:"\e7f6"}
+.ph.ph-desk:before{content:"\ed16"}
+.ph.ph-dots-three:before{content:"\e1fe"}
+.ph.ph-drop:before{content:"\e210"}
+.ph.ph-egg:before{content:"\e812"}
+.ph.ph-envelope-simple:before{content:"\e218"}
+.ph.ph-first-aid:before{content:"\e56e"}
+.ph.ph-fork-knife:before{content:"\e262"}
+.ph.ph-google-logo:before{content:"\e292"}
+.ph.ph-heart:before{content:"\e2a8"}
+.ph.ph-ice-cream:before{content:"\e804"}
+.ph.ph-instagram-logo:before{content:"\e2d0"}
+.ph.ph-key:before{content:"\e2d6"}
+.ph.ph-list:before{content:"\e2f0"}
+.ph.ph-lock-key:before{content:"\e2fe"}
+.ph.ph-map-pin:before{content:"\e316"}
+.ph.ph-map-trifold:before{content:"\e31a"}
+.ph.ph-minus:before{content:"\e32a"}
+.ph.ph-moon-stars:before{content:"\e58e"}
+.ph.ph-mountains:before{content:"\e7ae"}
+.ph.ph-navigation-arrow:before{content:"\eade"}
+.ph.ph-paper-plane-tilt:before{content:"\e398"}
+.ph.ph-person-simple-walk:before{content:"\e73a"}
+.ph.ph-plant:before{content:"\ebae"}
+.ph.ph-plus:before{content:"\e3d4"}
+.ph.ph-shopping-bag:before{content:"\e416"}
+.ph.ph-shower:before{content:"\e776"}
+.ph.ph-star:before{content:"\e46a"}
+.ph.ph-storefront:before{content:"\e470"}
+.ph.ph-sun-horizon:before{content:"\e5b6"}
+.ph.ph-taxi:before{content:"\e902"}
+.ph.ph-translate:before{content:"\e4a2"}
+.ph.ph-tree:before{content:"\e6da"}
+.ph.ph-users-three:before{content:"\e68e"}
+.ph.ph-washing-machine:before{content:"\ede8"}
+.ph.ph-whatsapp-logo:before{content:"\e5d0"}
+.ph.ph-wifi-high:before{content:"\e4ea"}
+.ph.ph-wine:before{content:"\e6b2"}
+.ph.ph-x:before{content:"\e4f6"}
+@font-face{font-family:"Phosphor-Bold";src:url("./phosphor-bold.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph-bold {
+  
+  font-family: "Phosphor-Bold" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ph-bold.ph-house-line:before{content:"\e2c4"}
+.ph-bold.ph-airplane-landing:before{content:"\e502"}
+.ph-bold.ph-armchair:before{content:"\e012"}
+.ph-bold.ph-arrow-left:before{content:"\e058"}
+.ph-bold.ph-arrow-right:before{content:"\e06c"}
+.ph-bold.ph-basket:before{content:"\e964"}
+.ph-bold.ph-bed:before{content:"\e0cc"}
+.ph-bold.ph-bird:before{content:"\e72c"}
+.ph-bold.ph-bookmark-simple:before{content:"\e0ea"}
+.ph-bold.ph-bus:before{content:"\e106"}
+.ph-bold.ph-calendar-check:before{content:"\e712"}
+.ph-bold.ph-calendar-dots:before{content:"\e7b4"}
+.ph-bold.ph-calendar-heart:before{content:"\e8b0"}
+.ph-bold.ph-car-simple:before{content:"\e114"}
+.ph-bold.ph-carrot:before{content:"\ed38"}
+.ph-bold.ph-chat-circle:before{content:"\e168"}
+.ph-bold.ph-chat-circle-dots:before{content:"\e16c"}
+.ph-bold.ph-cheese:before{content:"\e9fe"}
+.ph-bold.ph-church:before{content:"\ecea"}
+.ph-bold.ph-clock:before{content:"\e19a"}
+.ph-bold.ph-coffee:before{content:"\e1c2"}
+.ph-bold.ph-cooking-pot:before{content:"\e764"}
+.ph-bold.ph-couch:before{content:"\e7f6"}
+.ph-bold.ph-desk:before{content:"\ed16"}
+.ph-bold.ph-dots-three:before{content:"\e1fe"}
+.ph-bold.ph-drop:before{content:"\e210"}
+.ph-bold.ph-egg:before{content:"\e812"}
+.ph-bold.ph-envelope-simple:before{content:"\e218"}
+.ph-bold.ph-first-aid:before{content:"\e56e"}
+.ph-bold.ph-fork-knife:before{content:"\e262"}
+.ph-bold.ph-google-logo:before{content:"\e292"}
+.ph-bold.ph-heart:before{content:"\e2a8"}
+.ph-bold.ph-ice-cream:before{content:"\e804"}
+.ph-bold.ph-instagram-logo:before{content:"\e2d0"}
+.ph-bold.ph-key:before{content:"\e2d6"}
+.ph-bold.ph-list:before{content:"\e2f0"}
+.ph-bold.ph-lock-key:before{content:"\e2fe"}
+.ph-bold.ph-map-pin:before{content:"\e316"}
+.ph-bold.ph-map-trifold:before{content:"\e31a"}
+.ph-bold.ph-minus:before{content:"\e32a"}
+.ph-bold.ph-moon-stars:before{content:"\e58e"}
+.ph-bold.ph-mountains:before{content:"\e7ae"}
+.ph-bold.ph-navigation-arrow:before{content:"\eade"}
+.ph-bold.ph-paper-plane-tilt:before{content:"\e398"}
+.ph-bold.ph-person-simple-walk:before{content:"\e73a"}
+.ph-bold.ph-plant:before{content:"\ebae"}
+.ph-bold.ph-plus:before{content:"\e3d4"}
+.ph-bold.ph-shopping-bag:before{content:"\e416"}
+.ph-bold.ph-shower:before{content:"\e776"}
+.ph-bold.ph-star:before{content:"\e46a"}
+.ph-bold.ph-storefront:before{content:"\e470"}
+.ph-bold.ph-sun-horizon:before{content:"\e5b6"}
+.ph-bold.ph-taxi:before{content:"\e902"}
+.ph-bold.ph-translate:before{content:"\e4a2"}
+.ph-bold.ph-tree:before{content:"\e6da"}
+.ph-bold.ph-users-three:before{content:"\e68e"}
+.ph-bold.ph-washing-machine:before{content:"\ede8"}
+.ph-bold.ph-whatsapp-logo:before{content:"\e5d0"}
+.ph-bold.ph-wifi-high:before{content:"\e4ea"}
+.ph-bold.ph-wine:before{content:"\e6b2"}
+.ph-bold.ph-x:before{content:"\e4f6"}

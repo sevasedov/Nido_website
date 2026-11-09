@@ -119,6 +119,7 @@ function initLang(){if(window.NIDO_LANG)return window.NIDO_LANG;try{const p=new 
 R.forEach(r=>{r.path=r.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,'-');});
 const PROD=!!window.NIDO_PATHS||/(^|\.)nidotepoztlan\.(com|mx)$/.test(location.hostname);
 const curLang=()=>(window.__nidoCmp&&window.__nidoCmp.state.lang)||initLang();
+const PD=f=>e=>{if(e&&e.preventDefault&&!(e.metaKey||e.ctrlKey||e.shiftKey))e.preventDefault();else if(e&&e.preventDefault)return;return f(e);};
 const pagePath=(l,i)=>(l==='en'?'/en':'')+'/'+(i>=0?R[i].path:'');
 function syncHead(i,l){l=l||curLang();const S='https://nidotepoztlan.com',M=window.NIDO_META,q=(sel,a,v)=>{const e=document.querySelector(sel);if(e)e.setAttribute(a,v);};
  if(M)document.title=i>=0?M.rooms[R[i].path][l]:M.home[l];else{window.__nidoTitle=window.__nidoTitle||document.title;document.title=i>=0?R[i].name+' · '+window.__nidoTitle:window.__nidoTitle;}
@@ -159,9 +160,9 @@ function vals(cmp,opts){
  const roomOpts=[{v:-1,label:ui.anyRoom}].concat(R.map((r,i)=>({v:i,label:r.name})));
  const navKeys=['rooms','house','life','work','guide','faq'];
  return {lang,isEs:lang==='es',isEn:lang==='en',ui,c,logo:'assets/logo-v3.jpg',
-  toggleLang:()=>setLang(lang==='es'?'en':'es'),setEs:()=>setLang('es'),setEn:()=>setLang('en'),
-  nav:navKeys.map(k=>({key:k,label:ui.nav[k],go:()=>scrollTo(k)})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],go:k==='hood'?()=>{location.href=PROD?(lang==='en'?'/en':'')+'/neighborhood':'neighborhood.html'+(lang==='en'?'?lang=en':'');}:()=>scrollTo(k)})),goBook:()=>scrollToBook(),goTop:()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});},
-  isHome:s.view!=='room',isRoom:s.view==='room',goHome:()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);},
+  toggleLang:()=>setLang(lang==='es'?'en':'es'),setEs:PD(()=>setLang('es')),setEn:PD(()=>setLang('en')),
+  nav:navKeys.map(k=>({key:k,label:ui.nav[k],href:'#'+k,go:PD(()=>scrollTo(k))})),navAll:['rooms','house','hood','life','guide','faq'].map(k=>({key:k,label:ui.nav[k],href:k==='hood'?(PROD?(lang==='en'?'/en':'')+'/neighborhood':'neighborhood.html'+(lang==='en'?'?lang=en':'')):'#'+k,go:k==='hood'?PD(()=>{location.href=PROD?(lang==='en'?'/en':'')+'/neighborhood':'neighborhood.html'+(lang==='en'?'?lang=en':'');}):PD(()=>scrollTo(k))})),goBook:PD(()=>scrollToBook()),goTop:PD(()=>{set({view:'home'});window.scrollTo({top:0,behavior:'smooth'});}),homeHref:PROD?pagePath(lang,-1):'#',esHref:PROD?pagePath('es',s.view==='room'?s.room:-1):'?lang=es',enHref:PROD?pagePath('en',s.view==='room'?s.room:-1):'?lang=en',
+  isHome:s.view!=='room',isRoom:s.view==='room',goHome:PD(()=>{if(history.state&&history.state.room!=null){history.back();return;}route({},homeUrl());setCanon(-1);set({view:'home'});setTimeout(()=>{const el=document.getElementById('rooms');if(el)window.scrollTo(0,el.getBoundingClientRect().top+scrollY-80);},60);}),
   rooms,cur,curPhotos:cur.photos,curThumbs:cur.thumbs,others:rooms.filter(r=>r.idx!==cur.idx),
   ci:s.ci||'',co:s.co||'',setCi:e=>set({ci:e.target.value}),setCo:e=>set({co:e.target.value}),
   sel:s.sel==null?-1:s.sel,setSel:e=>set({sel:+e.target.value}),roomOpts,q,noQuote:!q.has,
