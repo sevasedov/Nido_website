@@ -26,3 +26,7 @@ Static site. No build step. Upload the contents of this folder to the root of th
 The design-tool export doesn't contain the SEO code. If you overwrite these two files with a fresh export, English pages lose their own canonical and the room links stop being crawlable.
 Safer: change only the text you need in the repo copy, or ask Claude to merge the new export into the current files.
 functions/_middleware.js always rewrites titles, canonicals, hreflang and schema on the server, so those survive an overwrite either way.
+
+## Cache versions
+Scripts and the icon stylesheet are loaded as `file.js?v=YYYYMMDD` in index.html and neighborhood.html.
+Browsers keep these files for 4 hours, so after changing any .js file (or assets/fonts/phosphor.css), bump the `?v=` date in both HTML files, or returning visitors may get the old script with the new page.
